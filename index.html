@@ -136,8 +136,6 @@
     <div class="authors-inline">Anonymous authors &middot; paper under double-blind review</div>
     <div class="link-row">
         <a href="#videos" class="link-pill primary">🎬 Task Videos</a>
-        <a href="#method" class="link-pill">🧭 Method</a>
-        <a href="#results" class="link-pill">📊 Results</a>
         <a href="#transfer" class="link-pill">🔁 Transfer</a>
     </div>
 </header>
@@ -265,49 +263,7 @@
     </div>
 </section>
 
-<!-- Method -->
-<section id="method">
-    <div class="page">
-        <h2>How It Works</h2>
-        <p class="method-text">A language model reads the prompt and the robot's own MJCF file and writes a reward, design constraints, a search map, an initial motion, and a continuous design space &theta; = (<em>u</em>, &sigma;). The co-design loop then proposes, screens, controls and judges designs:</p>
-        <ul class="method-list">
-            <li><strong>Language proposals grounded in physics.</strong> Language reflection turns failures into hypotheses about <em>what</em> to change; quantities measured in simulation, and a learned design model fitted to them, decide <em>how much</em>.</li>
-            <li><strong>A continuous design space.</strong> Link kinematics, motors, added joints, and generated contact geometry such as feet and fingertips, read directly from the robot's description.</li>
-            <li><strong>Cheap screens, then control.</strong> Invalid, redundant and low-promise designs are filtered in under a second; survivors get a warm-started MPC search and a frozen task judge.</li>
-            <li><strong>Real-world fabrication.</strong> Stress-based topology optimization turns added parts into light, printable components.</li>
-        </ul>
-        <img class="fig" src="figures/method_overview.jpg" alt="L2D overview: prompt to language model to design space and iterative co-design loop of propose, screens, control and judge." loading="lazy">
-        <div class="fig-caption">Top: the language model turns the prompt and robot into the problem. Bottom: one round of the co-design loop.</div>
 
-        <img class="fig" src="figures/fig_space_G1.jpg" alt="Counts of design knobs per kind read from a Go2 MJCF file." loading="lazy">
-        <div class="fig-caption">The design space of a Go2, read from its own MJCF file.</div>
-
-        <img class="fig" src="figures/task_suite.jpg" alt="Eight task renders: hurdle, toss, bin pick, pen spin, free throw, curling, rocky slope, hammer." loading="lazy">
-        <div class="fig-caption">The task suite: five main and three held-out tasks, each with an L2D design (orange: changed parts).</div>
-    </div>
-</section>
-
-<!-- Results -->
-<section id="results">
-    <div class="page">
-        <h2>Results</h2>
-        <p class="method-text"><strong>Against language-driven co-design.</strong> At the same language budget, L2D is compared with RoboMoRe, VLMgineer and Eureka, all using the same model, simulator, design space and judge.</p>
-        <img class="fig" src="figures/llm_baselines_fig3.jpg" alt="Bar charts of final scores for L2D and three language-driven baselines on five tasks." loading="lazy">
-        <div class="fig-caption">Mean final score on six held-out starts (dashed: stock robot) and normalized gain over stock.</div>
-
-        <p class="method-text"><strong>Without language.</strong> L2D's physics search against random search, Bayesian optimization and CMA-ES at 1,000 designs per seed.</p>
-        <img class="fig" src="figures/design_baselines_clean.jpg" alt="Best gain over stock versus designs evaluated for L2D, random search, BO and CMA-ES." loading="lazy">
-        <div class="fig-caption">Best gain over the stock robot so far (mean over seeds, &plusmn;1 s.e.).</div>
-
-        <p class="method-text"><strong>What the loop explores.</strong> Every design simulated in the language-driven runs, embedded by physical quantities, knobs and generated parts.</p>
-        <img class="fig" src="figures/design_latent.jpg" alt="t-SNE map of simulated designs with labelled clusters and success rates." loading="lazy">
-        <div class="fig-caption">t-SNE of simulated designs; clusters are labelled with their shared changes and success rate.</div>
-
-        <p class="method-text"><strong>Ablation.</strong> On the toss, removing the control warm start halves the best throw on every seed.</p>
-        <img class="fig fig-narrow" src="figures/ablation_toss_scaled.jpg" alt="Best throw distance over designs with parts of the loop removed." loading="lazy">
-        <div class="fig-caption">Best throw so far with one part of the loop removed (mean of three seeds; bands: range).</div>
-    </div>
-</section>
 
 <!-- Transfer -->
 <section id="transfer">

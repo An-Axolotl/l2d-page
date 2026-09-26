@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language to Design (L2D): Towards Self Evolving Robots</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:       #0d0d0f;
+            --surface:  #141416;
+            --border:   #242428;
+            --muted:    #55555e;
+            --secondary:#9898a8;
+            --body:     #c8c8d8;
+            --heading:  #f0f0f4;
+            --accent:   #7b9de8;
+            --accent2:  #a8c4ff;
+            --ok:       #6fcf8e;
+            --warn:     #e8c25b;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Sans', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--body);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .page { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        .page-wide { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+        header { padding: 64px 24px 40px; text-align: center; max-width: 900px; margin: 0 auto; }
+
+        .venue-tag {
+            display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+            text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent);
+            border-radius: 3px; padding: 3px 10px; margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Noto Serif', Georgia, serif; font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 400; color: var(--heading); line-height: 1.25; margin-bottom: 24px; letter-spacing: -0.01em;
+        }
+
+        .authors-inline { font-size: 1rem; color: var(--body); margin-bottom: 28px; font-style: italic; }
+
+        .link-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 8px; }
+        .link-pill {
+            display: inline-flex; align-items: center; gap: 6px; padding: 7px 18px; border-radius: 4px;
+            font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: background 0.2s, transform 0.15s;
+            border: 1px solid var(--border); color: var(--body); background: var(--surface);
+        }
+        .link-pill:hover { background: #1e1e24; border-color: var(--muted); transform: translateY(-1px); }
+        .link-pill.primary { background: #1b2b52; border-color: #2e4a8a; color: var(--accent2); }
+        .link-pill.primary:hover { background: #22366a; }
+
+        .hero-wrap { max-width: 1000px; margin: 40px auto 0; padding: 0 24px; }
+        .hero-wrap img { width: 100%; border-radius: 6px; border: 1px solid var(--border); display: block; }
+        .hero-caption { text-align: center; font-size: 0.85rem; color: var(--secondary); margin-top: 10px; font-style: italic; }
+
+        section { padding: 60px 0; border-top: 1px solid var(--border); }
+
+        h2 {
+            font-family: 'Noto Serif', Georgia, serif; font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+            font-weight: 400; color: var(--heading); margin-bottom: 24px; letter-spacing: -0.01em;
+        }
+        h3.sub {
+            font-family: 'Noto Serif', Georgia, serif; font-size: 1.2rem; font-weight: 400;
+            color: var(--heading); margin: 40px 0 8px;
+        }
+        h3.sub:first-of-type { margin-top: 0; }
+        .sub-note { font-size: 0.9rem; color: var(--secondary); margin-bottom: 20px; }
+
+        .abstract-text { font-family: 'Noto Serif', Georgia, serif; font-size: 1.05rem; line-height: 1.9; color: var(--body); }
+
+        .method-text { font-size: 0.975rem; line-height: 1.8; color: var(--body); margin-bottom: 20px; }
+        .method-text strong { color: var(--heading); font-weight: 600; }
+        .method-list { margin: 0 0 20px 1.2em; font-size: 0.975rem; line-height: 1.8; }
+        .method-list li { margin-bottom: 6px; }
+        .method-list strong { color: var(--heading); font-weight: 600; }
+
+        /* Figures sit on white paper, so give them a light frame */
+        .fig { display: block; width: 100%; border-radius: 6px; border: 1px solid var(--border); background: #fff; margin: 8px 0 8px; }
+        .fig-narrow { max-width: 560px; margin-left: auto; margin-right: auto; }
+        .fig-caption { font-size: 0.85rem; color: var(--secondary); font-style: italic; margin-bottom: 28px; text-align: center; }
+
+        /* Demo grid */
+        .demo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .demo-grid.two { grid-template-columns: repeat(2, 1fr); }
+        @media (max-width: 900px) { .demo-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 620px) { .demo-grid, .demo-grid.two { grid-template-columns: 1fr; } }
+
+        .demo-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; }
+        .demo-card .vid-wrap { background: #000; aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center; }
+        .demo-card video { width: 100%; height: 100%; object-fit: contain; display: block; }
+        .demo-card .card-body { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; }
+        .demo-card h3 { font-size: 0.9rem; font-weight: 600; color: var(--heading); margin-bottom: 2px; font-family: 'Noto Sans', sans-serif; }
+        .demo-card .robot { font-size: 0.75rem; color: var(--accent); letter-spacing: 0.04em; margin-bottom: 8px; }
+        .demo-card .prompt { font-family: 'Noto Serif', Georgia, serif; font-style: italic; font-size: 0.82rem; color: var(--body); margin-bottom: 8px; }
+        .demo-card p { font-size: 0.8rem; color: var(--secondary); line-height: 1.55; }
+        .badge { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+                 border-radius: 3px; padding: 1px 7px; margin-left: 6px; vertical-align: 2px; }
+        .badge.ok { color: var(--ok); border: 1px solid var(--ok); }
+        .badge.partial { color: var(--warn); border: 1px solid var(--warn); }
+
+        .toggle { display: flex; gap: 6px; margin-top: auto; padding-top: 12px; }
+        .toggle button {
+            font: inherit; font-size: 0.75rem; padding: 4px 10px; border-radius: 3px; cursor: pointer;
+            border: 1px solid var(--border); background: var(--bg); color: var(--secondary);
+        }
+        .toggle button.active { background: #1b2b52; border-color: #2e4a8a; color: var(--accent2); }
+
+        .tip {
+            margin-top: 24px; padding: 14px 18px; background: rgba(123,157,232,0.07); border-left: 3px solid var(--accent);
+            border-radius: 3px; font-size: 0.85rem; color: var(--body); line-height: 1.6;
+        }
+
+        footer { padding: 40px 24px; text-align: center; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--muted); }
+        footer a { color: var(--muted); }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="venue-tag">Anonymous Submission</div>
+    <h1>Language to Design (L2D): Towards Self Evolving Robots</h1>
+    <div class="authors-inline">Anonymous authors &middot; paper under double-blind review</div>
+    <div class="link-row">
+        <a href="#videos" class="link-pill primary">🎬 Task Videos</a>
+        <a href="#method" class="link-pill">🧭 Method</a>
+        <a href="#results" class="link-pill">📊 Results</a>
+        <a href="#transfer" class="link-pill">🔁 Transfer</a>
+    </div>
+</header>
+
+<div class="hero-wrap">
+    <img src="figures/teaser_v50_big.jpg" alt="Prompt, generation and deployment for four robots: a UR5e throwing a ball, a Go1 jumping a hurdle, a G1 humanoid shooting free throws and a Franka gripper moving a can between bins." loading="eager">
+    <div class="hero-caption">From a sentence and a stock robot to a co-designed body, a motion that performs the task, and manufacturable parts.</div>
+</div>
+
+<!-- Abstract -->
+<section style="margin-top:60px">
+    <div class="page">
+        <h2>Abstract</h2>
+        <div class="abstract-text">
+            <p>Designing a robot requires expertise in both complex mechanics and control. Adapting a robot to a task relies typically on slow cycles of guessing, prototyping and testing to find where design and behavior align. This raises a fundamental question: can robot design be made as simple as describing what we want a robot to do? We present Language to Design (L2D), a co-design framework that turns a prompt and an existing robot into an optimized body, a motion that performs the task, and manufacturable parts, without tuning or training per task or per robot. The framework supports 1) language proposals grounded in measured physics, where language reflection decides what to change and physics measured in simulation decides how much, 2) a continuous design space, spanning link kinematics, motors, added joints, and continuous morphology designs for contact points such as feet and fingers, and 3) real-world fabrication, where stress-based topology optimization turns added parts into light, manufacturable components deployed zero shot on hardware. We demonstrate L2D by co-designing quadrupeds, arms, grippers, dexterous hands, and humanoids across eleven tasks on nine robots, and deploy a printed design zero shot on a real quadruped for a climbing task.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Videos -->
+<section id="videos">
+    <div class="page-wide">
+        <h2>Co-Designed Robots in Action</h2>
+        <p class="method-text">Every clip below is the best design L2D found for the task, flown in MuJoCo on a held-out start, with the on-screen readout from the frozen task judge. Use <em>vs. stock</em> to see the same start flown by the unmodified robot side by side.</p>
+
+        <h3 class="sub">Main tasks</h3>
+        <p class="sub-note">Five tasks on five robot families, each with its own design space.</p>
+        <div class="demo-grid">
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/hurdle.mp4" data-b="videos/hurdle_vs.mp4" src="videos/hurdle.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Hurdle <span class="badge ok">Pass</span></h3>
+                    <div class="robot">UNITREE GO1 &middot; QUADRUPED</div>
+                    <div class="prompt">&ldquo;Hurdle over the wall in front of you: get over it and past it.&rdquo;</div>
+                    <p>A language-proposed Go1 with generated tripod feet, longer shanks and printed calf sleeves clears the 0.30&thinsp;m board cleanly on 6 of 6 held-out starts and lands well past it.</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/toss.mp4" data-b="videos/toss_vs.mp4" src="videos/toss.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Toss <span class="badge ok">Pass</span></h3>
+                    <div class="robot">UR5e + ROBOTIQ 2F-85 &middot; ARM</div>
+                    <div class="prompt">&ldquo;Throw the ball as far as you can.&rdquo;</div>
+                    <p>A physics-guided edit of the arm's link geometry throws the ball 32&thinsp;m on this start, in lane on all 6 held-out starts. Left: the arm; right: the ball's flight.</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/binpick.mp4" data-b="videos/binpick_vs.mp4" src="videos/binpick.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Bin pick <span class="badge ok">Pass</span></h3>
+                    <div class="robot">FRANKA FR3 + GENERATED GRIPPER</div>
+                    <div class="prompt">&ldquo;Pick the can up out of the bin &hellip; put it down inside the green bin.&rdquo;</div>
+                    <p>A generated four-finger sliding gripper moves the can to the green bin and leaves it upright in about 2.9&thinsp;s, on 6 of 6 held-out starts.</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/freethrow.mp4" data-b="videos/freethrow_vs.mp4" src="videos/freethrow.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Free throw <span class="badge ok">Pass</span></h3>
+                    <div class="robot">UNITREE G1 + HANDS &middot; HUMANOID</div>
+                    <div class="prompt">&ldquo;Shoot it into the hoop without stepping over the line.&rdquo;</div>
+                    <p>A G1 with rebalanced arm actuators sinks a backward whole-body throw through the hoop (made on 2 of 6 held-out starts).</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/pen.mp4" data-b="videos/pen_vs.mp4" src="videos/pen.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Pen spin <span class="badge partial">Hardest task</span></h3>
+                    <div class="robot">SHARPA HAND &middot; DEXTEROUS HAND</div>
+                    <div class="prompt">&ldquo;Spin it one full turn without dropping it, ending steady.&rdquo;</div>
+                    <p>The hardest task in the suite. The best design, a physics-guided fingertip edit, turns the pen a full turn on its best start and makes partial turns on the others.</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/climb.mp4" data-b="videos/climb_vs.mp4" src="videos/climb.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Box climb <span class="badge ok">Pass</span></h3>
+                    <div class="robot">UNITREE GO2 + PRINTED PARTS &middot; QUADRUPED</div>
+                    <div class="prompt">&ldquo;Climb up onto the box in front of you (0.45&thinsp;m high) and stand on it.&rdquo;</div>
+                    <p>Printed tread feet over the stock calves let the Go2 climb onto a 0.45&thinsp;m box and stand on all four feet (5 of 6 starts); the stock Go2 does not. This is the design we fabricate for hardware.</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="sub">Held-out tasks</h3>
+        <p class="sub-note">Three tasks never seen while L2D was developed, run with the loop unchanged.</p>
+        <div class="demo-grid">
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/hammer.mp4" data-b="videos/hammer_vs.mp4" src="videos/hammer.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Hammer <span class="badge ok">Pass</span></h3>
+                    <div class="robot">FRANKA PANDA + GRIPPER</div>
+                    <div class="prompt">&ldquo;Use the hammer to drive the nail into the wooden board.&rdquo;</div>
+                    <p>A redesigned gripper grips the hammer and drives the nail; the stock gripper never does.</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/curl.mp4" data-b="videos/curl_vs.mp4" src="videos/curl.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Curling <span class="badge ok">Pass</span></h3>
+                    <div class="robot">KINOVA GEN3 + 2F-85 &middot; ARM</div>
+                    <div class="prompt">&ldquo;Slide the stone down the ice and let go of it before the red line.&rdquo;</div>
+                    <p>The co-designed arm releases before the line and the stone comes to rest in the house, on the ice.</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/rocky.mp4" data-b="videos/rocky_vs.mp4" src="videos/rocky.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Rocky slope <span class="badge ok">Pass</span></h3>
+                    <div class="robot">ANYMAL C &middot; QUADRUPED</div>
+                    <div class="prompt">&ldquo;Sprint up the rocky slope to the yellow mark at the top.&rdquo;</div>
+                    <p>A co-designed ANYmal C reaches the mark over loose rocks (5 of 6 held-out starts). The stock robot also often succeeds here, so this task shows generality rather than a gain.</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Method -->
+<section id="method">
+    <div class="page">
+        <h2>How It Works</h2>
+        <p class="method-text">A language model reads the prompt and the robot's own MJCF file and writes a reward, design constraints, a search map, an initial motion, and a continuous design space &theta; = (<em>u</em>, &sigma;). The co-design loop then proposes, screens, controls and judges designs:</p>
+        <ul class="method-list">
+            <li><strong>Language proposals grounded in physics.</strong> Language reflection turns failures into hypotheses about <em>what</em> to change; quantities measured in simulation, and a learned design model fitted to them, decide <em>how much</em>.</li>
+            <li><strong>A continuous design space.</strong> Link kinematics, motors, added joints, and generated contact geometry such as feet and fingertips, read directly from the robot's description.</li>
+            <li><strong>Cheap screens, then control.</strong> Invalid, redundant and low-promise designs are filtered in under a second; survivors get a warm-started MPC search and a frozen task judge.</li>
+            <li><strong>Real-world fabrication.</strong> Stress-based topology optimization turns added parts into light, printable components.</li>
+        </ul>
+        <img class="fig" src="figures/method_overview.jpg" alt="L2D overview: prompt to language model to design space and iterative co-design loop of propose, screens, control and judge." loading="lazy">
+        <div class="fig-caption">Top: the language model turns the prompt and robot into the problem. Bottom: one round of the co-design loop.</div>
+
+        <img class="fig" src="figures/fig_space_G1.jpg" alt="Counts of design knobs per kind read from a Go2 MJCF file." loading="lazy">
+        <div class="fig-caption">The design space of a Go2, read from its own MJCF file.</div>
+
+        <img class="fig" src="figures/task_suite.jpg" alt="Eight task renders: hurdle, toss, bin pick, pen spin, free throw, curling, rocky slope, hammer." loading="lazy">
+        <div class="fig-caption">The task suite: five main and three held-out tasks, each with an L2D design (orange: changed parts).</div>
+    </div>
+</section>
+
+<!-- Results -->
+<section id="results">
+    <div class="page">
+        <h2>Results</h2>
+        <p class="method-text"><strong>Against language-driven co-design.</strong> At the same language budget, L2D is compared with RoboMoRe, VLMgineer and Eureka, all using the same model, simulator, design space and judge.</p>
+        <img class="fig" src="figures/llm_baselines_fig3.jpg" alt="Bar charts of final scores for L2D and three language-driven baselines on five tasks." loading="lazy">
+        <div class="fig-caption">Mean final score on six held-out starts (dashed: stock robot) and normalized gain over stock.</div>
+
+        <p class="method-text"><strong>Without language.</strong> L2D's physics search against random search, Bayesian optimization and CMA-ES at 1,000 designs per seed.</p>
+        <img class="fig" src="figures/design_baselines_clean.jpg" alt="Best gain over stock versus designs evaluated for L2D, random search, BO and CMA-ES." loading="lazy">
+        <div class="fig-caption">Best gain over the stock robot so far (mean over seeds, &plusmn;1 s.e.).</div>
+
+        <p class="method-text"><strong>What the loop explores.</strong> Every design simulated in the language-driven runs, embedded by physical quantities, knobs and generated parts.</p>
+        <img class="fig" src="figures/design_latent.jpg" alt="t-SNE map of simulated designs with labelled clusters and success rates." loading="lazy">
+        <div class="fig-caption">t-SNE of simulated designs; clusters are labelled with their shared changes and success rate.</div>
+
+        <p class="method-text"><strong>Ablation.</strong> On the toss, removing the control warm start halves the best throw on every seed.</p>
+        <img class="fig fig-narrow" src="figures/ablation_toss_scaled.jpg" alt="Best throw distance over designs with parts of the loop removed." loading="lazy">
+        <div class="fig-caption">Best throw so far with one part of the loop removed (mean of three seeds; bands: range).</div>
+    </div>
+</section>
+
+<!-- Transfer -->
+<section id="transfer">
+    <div class="page-wide">
+        <h2>Transfer Between Tasks</h2>
+        <p class="method-text" style="max-width:900px">Designs found on one task seed the first round of a new run on a related task, on the same robot.</p>
+        <div class="demo-grid two">
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/longjump_lib.mp4" data-b="videos/longjump_lib_vs.mp4" src="videos/longjump_lib.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Pit leap &rarr; long jump, zero shot <span class="badge ok">Pass</span></h3>
+                    <div class="robot">UNITREE GO2 &middot; QUADRUPED</div>
+                    <p>A design found on the pit-leap task, dropped into the long-jump run, clears the long jump on all 6 starts as the loop's very first proposal.</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/gap.mp4" data-b="videos/gap_vs.mp4" src="videos/gap.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Long jump &rarr; pit leap <span class="badge ok">Pass</span></h3>
+                    <div class="robot">UNITREE GO2 &middot; QUADRUPED</div>
+                    <p>Seeded from a long-jump design library, a Go2 runs up and leaps the lava pit (2 of 6 starts).</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/longjump.mp4" data-b="videos/longjump_vs.mp4" src="videos/longjump.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Standing long jump (source) <span class="badge ok">Pass</span></h3>
+                    <div class="robot">UNITREE GO2 &middot; QUADRUPED</div>
+                    <p>The source run: a co-designed Go2 clears the long-jump pit from a standing start (5 of 6 starts); the stock Go2 never does.</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/curl_xfer.mp4" data-b="videos/curl_xfer_vs.mp4" src="videos/curl_xfer.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Toss &rarr; curling <span class="badge ok">Pass</span></h3>
+                    <div class="robot">UR5e + ROBOTIQ 2F-85 &middot; ARM</div>
+                    <p>Starting from a library of tossing designs, the loop finds an arm that curls the stone to rest inside the house.</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+        </div>
+        <div style="max-width:900px;margin:36px auto 0">
+            <img class="fig" src="figures/transfer_tasks.jpg" alt="Renders of transfer tasks and the box climb with printed feet." loading="lazy">
+            <div class="fig-caption">Transfer within one robot (Go2 long jump to pit leap; UR5e toss to curling) and the box climb with printed feet.</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    Anonymous project page for double-blind review. Page layout adapted from the <a href="https://nerfies.github.io" target="_blank" rel="noopener">Nerfies</a> template.
+</footer>
+
+<script>
+document.querySelectorAll('.demo-card').forEach(function (card) {
+    var v = card.querySelector('video');
+    card.querySelectorAll('.toggle button').forEach(function (b) {
+        b.addEventListener('click', function () {
+            card.querySelectorAll('.toggle button').forEach(function (x) { x.classList.remove('active'); });
+            b.classList.add('active');
+            v.src = v.dataset[b.dataset.v];
+            v.play();
+        });
+    });
+});
+// Only play clips that are on screen
+if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { e.target.play().catch(function(){}); } else { e.target.pause(); } });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('video').forEach(function (v) { io.observe(v); });
+}
+</script>
+</body>
+</html>

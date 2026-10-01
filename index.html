@@ -7,7 +7,7 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -23,6 +23,8 @@
             --accent2:  #a8c4ff;
             --ok:       #6fcf8e;
             --warn:     #e8c25b;
+            --design:   #f0823a;
+            --design-2: #ffb07a;
         }
 
         html { scroll-behavior: smooth; }
@@ -99,25 +101,45 @@
         @media (max-width: 900px) { .demo-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 620px) { .demo-grid, .demo-grid.two { grid-template-columns: 1fr; } }
 
-        .demo-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; }
-        .demo-card .vid-wrap { background: #000; aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center; }
+        .demo-card {
+            position: relative; background: linear-gradient(180deg, #19171a 0%, var(--surface) 60%);
+            border: 1px solid #3a2e28; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.03) inset, 0 6px 22px rgba(0,0,0,0.35);
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+        .demo-card::before {                     /* thin design-orange accent along the top edge */
+            content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; z-index: 2;
+            background: linear-gradient(90deg, var(--design) 0%, var(--design-2) 50%, var(--design) 100%);
+        }
+        .demo-card:hover { border-color: #6b4a36; box-shadow: 0 0 0 1px rgba(240,130,58,0.25), 0 10px 30px rgba(0,0,0,0.45); transform: translateY(-2px); }
+        .demo-card .vid-wrap { background: #000; aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; }
         .demo-card video { width: 100%; height: 100%; object-fit: contain; display: block; }
-        .demo-card .card-body { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; }
-        .demo-card h3 { font-size: 0.9rem; font-weight: 600; color: var(--heading); margin-bottom: 2px; font-family: 'Noto Sans', sans-serif; }
-        .demo-card .robot { font-size: 0.75rem; color: var(--accent); letter-spacing: 0.04em; margin-bottom: 8px; }
+        .demo-card .card-body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; }
+        .demo-card h3 { font-family: 'Inter', 'Noto Sans', sans-serif; font-size: 1.12rem; font-weight: 700; letter-spacing: -0.01em;
+                        color: var(--heading); margin-bottom: 4px; line-height: 1.35; }
+        .demo-card .robot { font-family: 'Inter', 'Noto Sans', sans-serif; font-size: 0.72rem; font-weight: 600; color: var(--design-2);
+                            letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
         .demo-card .prompt { font-family: 'Noto Serif', Georgia, serif; font-style: italic; font-size: 0.82rem; color: var(--body); margin-bottom: 8px; }
-        .demo-card p { font-size: 0.8rem; color: var(--secondary); line-height: 1.55; }
+        .demo-card p { font-size: 0.8rem; color: var(--secondary); line-height: 1.55; margin-bottom: 16px; }
         .badge { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
                  border-radius: 3px; padding: 1px 7px; margin-left: 6px; vertical-align: 2px; }
         .badge.ok { color: var(--ok); border: 1px solid var(--ok); }
         .badge.partial { color: var(--warn); border: 1px solid var(--warn); }
 
-        .toggle { display: flex; gap: 6px; margin-top: auto; padding-top: 12px; }
-        .toggle button {
-            font: inherit; font-size: 0.75rem; padding: 4px 10px; border-radius: 3px; cursor: pointer;
-            border: 1px solid var(--border); background: var(--bg); color: var(--secondary);
+        .toggle {
+            display: grid; grid-template-columns: 1fr 1fr; margin-top: auto;
+            border: 1px solid #5a463a; border-radius: 3px; overflow: hidden;
         }
-        .toggle button.active { background: #1b2b52; border-color: #2e4a8a; color: var(--accent2); }
+        .toggle button {
+            font-family: 'Inter', 'Noto Sans', sans-serif; font-size: 0.8rem; font-weight: 600;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            padding: 11px 10px; cursor: pointer; border: none; border-radius: 0;
+            background: transparent; color: #cbbfb6; transition: background 0.15s, color 0.15s;
+        }
+        .toggle button + button { border-left: 1px solid #5a463a; }
+        .toggle button:hover { background: rgba(240,130,58,0.10); color: #fff; }
+        .toggle button.active { background: var(--design); color: #fff; }
+        .toggle button:focus-visible { outline: 2px solid var(--design-2); outline-offset: -2px; }
 
         .tip {
             margin-top: 24px; padding: 14px 18px; background: rgba(123,157,232,0.07); border-left: 3px solid var(--accent);
@@ -159,18 +181,18 @@
 <section id="videos">
     <div class="page-wide">
         <h2>Co-Designed Robots in Action</h2>
-        <p class="method-text">Every clip below is the best design L2D found for the task, flown in MuJoCo on a held-out start, with the on-screen readout from the frozen task judge. Use <em>vs. stock</em> to see the same start flown by the unmodified robot side by side.</p>
+        <p class="method-text">Every clip below is a design L2D found for the task, replayed from its judged MuJoCo episode and rendered in Blender; <span style="color:#e8762b;font-weight:600">orange</span> marks the parts the design added or reshaped, and the title states the change. Use <em>vs. stock</em> to see the same start flown by the unmodified robot side by side.</p>
 
         <h3 class="sub">Main tasks</h3>
-        <p class="sub-note">Five tasks on five robot families, each with its own design space.</p>
+        <p class="sub-note">Eight tasks on six robot families, each found by a normal L2D search with its own design space.</p>
         <div class="demo-grid">
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/hurdle.mp4" data-b="videos/hurdle_vs.mp4" src="videos/hurdle.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
                     <h3>Hurdle <span class="badge ok">Pass</span></h3>
-                    <div class="robot">UNITREE GO1 &middot; QUADRUPED</div>
+                    <div class="robot">UNITREE GO2 &middot; QUADRUPED</div>
                     <div class="prompt">&ldquo;Hurdle over the wall in front of you: get over it and past it.&rdquo;</div>
-                    <p>A language-proposed Go1 with generated tripod feet, longer shanks and printed calf sleeves clears the 0.30&thinsp;m board cleanly on 6 of 6 held-out starts and lands well past it.</p>
+                    <p>A Go2 with rear thighs 6&thinsp;cm longer and stronger rear knees clears a 0.42&thinsp;m board cleanly, never touching it (foot apex 0.43&thinsp;m), and lands well past it.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
@@ -180,7 +202,7 @@
                     <h3>Toss <span class="badge ok">Pass</span></h3>
                     <div class="robot">UR5e + ROBOTIQ 2F-85 &middot; ARM</div>
                     <div class="prompt">&ldquo;Throw the ball as far as you can.&rdquo;</div>
-                    <p>A physics-guided edit of the arm's link geometry throws the ball 32&thinsp;m on this start (the stock arm: 1.3&thinsp;m), in lane on all 6 held-out starts. Ground markers every 5&thinsp;m; inset: the arm close up.</p>
+                    <p>A physics-guided edit of the arm's link geometry, a forearm stretched 2.4&times; to 0.96&thinsp;m on a lighter upper arm, throws the ball 33&thinsp;m on this start (the stock arm: 1.3&thinsp;m). Ground markers every 5&thinsp;m.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
@@ -190,7 +212,7 @@
                     <h3>Bin pick <span class="badge ok">Pass</span></h3>
                     <div class="robot">FRANKA FR3 + GENERATED GRIPPER</div>
                     <div class="prompt">&ldquo;Pick the can up out of the bin &hellip; put it down inside the green bin.&rdquo;</div>
-                    <p>A generated four-finger sliding gripper moves the can to the green bin and leaves it upright in about 2.9&thinsp;s, on 6 of 6 held-out starts.</p>
+                    <p>A generated four-finger gripper with curved claw fingers moves the can to the green bin and leaves it upright in under 3&thinsp;s, on 6 of 6 held-out starts.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
@@ -200,7 +222,7 @@
                     <h3>Free throw <span class="badge ok">Pass</span></h3>
                     <div class="robot">UNITREE G1 + HANDS &middot; HUMANOID</div>
                     <div class="prompt">&ldquo;Shoot it into the hoop without stepping over the line.&rdquo;</div>
-                    <p>A G1 with rebalanced arm actuators sinks a backward whole-body throw through the hoop (made on 2 of 6 held-out starts).</p>
+                    <p>A G1 with softer right shoulder and elbow actuators sinks the shot through the hoop on 6 of 6 held-out starts with its fine-tuned controller.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
@@ -210,7 +232,7 @@
                     <h3>Pen spin <span class="badge partial">Hardest task</span></h3>
                     <div class="robot">SHARPA HAND &middot; DEXTEROUS HAND</div>
                     <div class="prompt">&ldquo;Spin it one full turn without dropping it, ending steady.&rdquo;</div>
-                    <p>The hardest task in the suite. The best design, a physics-guided fingertip edit, turns the pen a full turn on its best start and makes partial turns on the others.</p>
+                    <p>The hardest task in the suite. A hand with wider thumb and knuckle travel and softer side-to-side knuckles turns the pen a full turn on this held-out start without dropping it; on other starts it makes partial turns.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
@@ -224,6 +246,26 @@
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/soccer.mp4" data-b="videos/soccer_vs.mp4" src="videos/soccer.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Soccer <span class="badge ok">Goal</span></h3>
+                    <div class="robot">UNITREE ALIENGO &middot; QUADRUPED</div>
+                    <div class="prompt">&ldquo;Shoot this soccer ball into the top left hand corner of the net &hellip; without crossing over the line.&rdquo;</div>
+                    <p>With Opus proposing designs, an Aliengo with cup-shaped printed feet, heavier calves and a lighter trunk shoots into the top-left corner without crossing the line, scoring on 5 of 6 starts; the stock Aliengo scores on none.</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/longjump.mp4" data-b="videos/longjump_vs.mp4" src="videos/longjump.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Standing long jump <span class="badge ok">Pass</span></h3>
+                    <div class="robot">UNITREE GO2 &middot; QUADRUPED</div>
+                    <div class="prompt">&ldquo;Jump as far forward as you can, landing on your feet.&rdquo;</div>
+                    <p>Measured like a human long jump, from where the front feet leave to where the rear-most foot lands. A Go2 with telescoping shins, pointed-toe feet and a 3&thinsp;kg lighter trunk jumps 0.43&thinsp;m and counts on 5 of 6 starts; the stock Go2 counts on none.</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
         </div>
 
         <h3 class="sub">Held-out tasks</h3>
@@ -233,9 +275,9 @@
                 <div class="vid-wrap"><video data-a="videos/hammer.mp4" data-b="videos/hammer_vs.mp4" src="videos/hammer.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
                     <h3>Hammer <span class="badge ok">Pass</span></h3>
-                    <div class="robot">FRANKA PANDA + GRIPPER</div>
+                    <div class="robot">FRANKA PANDA + UMI GRIPPER &middot; GRIPPER ONLY</div>
                     <div class="prompt">&ldquo;Use the hammer to drive the nail into the wooden board.&rdquo;</div>
-                    <p>A redesigned gripper grips the hammer and drives the nail (3 of 6 held-out starts); the stock gripper never strikes it. Shown with a smoothed, speed-limited controller that still passes.</p>
+                    <p>Only the gripper may change: a right finger 9&thinsp;cm longer with a firmer grip holds the hammer and drives the nail in cleanly&mdash;only the hammer touches the nail. Shown with a smooth, jitter-free controller.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
@@ -245,7 +287,7 @@
                     <h3>Curling <span class="badge ok">Pass</span></h3>
                     <div class="robot">KINOVA GEN3 + 2F-85 &middot; ARM</div>
                     <div class="prompt">&ldquo;Slide the stone down the ice and let go of it before the red line.&rdquo;</div>
-                    <p>The co-designed arm flicks the stone before the line and it comes to rest in the house, on the ice (the best of 6 held-out starts); the stock arm's stone stops short.</p>
+                    <p>An arm with a 3.4&thinsp;cm shorter upper arm, heavier elbow and damped wrist releases the stone before the line and it comes to rest in the house. Shown with a smooth, jitter-free controller that passes the judge without the arm touching the ice.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
@@ -255,7 +297,7 @@
                     <h3>Rocky slope <span class="badge ok">Pass</span></h3>
                     <div class="robot">ANYMAL C &middot; QUADRUPED</div>
                     <div class="prompt">&ldquo;Sprint up the rocky slope to the yellow mark at the top.&rdquo;</div>
-                    <p>A co-designed ANYmal C scrambles over loose rocks to the mark (all 6 held-out starts). The stock robot also succeeds here, so this task shows generality rather than a gain.</p>
+                    <p>An ANYmal C with hips raised up to 10&thinsp;cm and a 4&thinsp;kg lighter trunk scrambles over loose rocks to the mark, shown with a smoother, anchored controller. The stock robot also succeeds on this start, so this task shows generality rather than a gain.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
@@ -276,25 +318,25 @@
                 <div class="card-body">
                     <h3>Pit leap &rarr; long jump, zero shot <span class="badge ok">Pass</span></h3>
                     <div class="robot">UNITREE GO2 &middot; QUADRUPED</div>
-                    <p>A design found on the pit-leap task, dropped into the long-jump run, clears the long jump on all 6 starts as the loop's very first proposal.</p>
+                    <p>A design found on the pit-leap task (1.7&times; spatula printed feet, longer thighs), dropped into the long-jump run, clears the long jump on all 6 starts as the loop's very first proposal.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/gap.mp4" data-b="videos/gap_vs.mp4" src="videos/gap.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Long jump &rarr; pit leap <span class="badge ok">Pass</span></h3>
+                    <h3>Long jump &rarr; pit leap <span class="badge ok">Clears</span></h3>
                     <div class="robot">UNITREE GO2 &middot; QUADRUPED</div>
-                    <p>Seeded from a long-jump design library, a Go2 runs up and leaps the lava pit (2 of 6 starts).</p>
+                    <p>Seeded from a long-jump design library, a Go2 with 2.25&times; flat-pad feet and front hips moved 12&thinsp;cm forward runs up, leaps the lava pit and lands on the far side.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/longjump.mp4" data-b="videos/longjump_vs.mp4" src="videos/longjump.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Standing long jump (source) <span class="badge ok">Pass</span></h3>
+                    <h3>Standing long jump <span class="badge ok">Pass</span></h3>
                     <div class="robot">UNITREE GO2 &middot; QUADRUPED</div>
-                    <p>The source run: a co-designed Go2 clears the long-jump pit from a standing start (5 of 6 starts); the stock Go2 never does.</p>
+                    <p>Measured like a human long jump, on flat ground from where the front feet leave to where the rear-most foot lands, and only if it lands on its feet. With Opus proposing over the full design space, a Go2 with telescoping shins, pointed-toe feet and a 3&thinsp;kg lighter trunk jumps 0.43&thinsp;m here and counts on 5 of 6 starts; the stock Go2 counts on none.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
@@ -303,7 +345,7 @@
                 <div class="card-body">
                     <h3>Toss &rarr; curling <span class="badge ok">Pass</span></h3>
                     <div class="robot">UR5e + ROBOTIQ 2F-85 &middot; ARM</div>
-                    <p>Starting from a library of tossing designs, the loop finds an arm that curls the stone to rest inside the house.</p>
+                    <p>Starting from a library of tossing designs, the loop finds an arm with an extra wrist twist joint, a shorter upper arm and a longer forearm that curls the stone to rest inside the house.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>

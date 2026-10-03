@@ -184,7 +184,7 @@
         <p class="method-text">Every clip below is a design L2D found for the task, replayed from its judged MuJoCo episode and rendered in Blender; <span style="color:#e8762b;font-weight:600">orange</span> marks the parts the design added or reshaped, and the title states the change. Use <em>vs. stock</em> to see the same start flown by the unmodified robot side by side.</p>
 
         <h3 class="sub">Main tasks</h3>
-        <p class="sub-note">Eight tasks on six robot families, each found by a normal L2D search with its own design space.</p>
+        <p class="sub-note">Nine tasks across quadrupeds, arms, grippers, a humanoid and a hand, each found by a normal L2D search with its own design space.</p>
         <div class="demo-grid">
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/hurdle.mp4" data-b="videos/hurdle_vs.mp4" src="videos/hurdle.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
@@ -266,6 +266,16 @@
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/curl_ur5e.mp4" data-b="videos/curl_ur5e_vs.mp4" src="videos/curl_ur5e.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <h3>Curling <span class="badge partial">Near miss</span></h3>
+                    <div class="robot">UR5e + ROBOTIQ 2F-85 &middot; ARM</div>
+                    <div class="prompt">&ldquo;Slide the stone down the ice and let go of it before the red line.&rdquo;</div>
+                    <p>A plain search, with no transfer, over the UR5e's full design space doubles the elbow motor and strengthens the shoulder. The stone slides to 1.3&thinsp;cm from the button, still creeping as the clip ends. The stock UR5e drops its stone off the ice.</p>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
         </div>
 
         <h3 class="sub">Held-out tasks</h3>
@@ -297,7 +307,7 @@
                     <h3>Rocky slope <span class="badge ok">Pass</span></h3>
                     <div class="robot">ANYMAL C &middot; QUADRUPED</div>
                     <div class="prompt">&ldquo;Sprint up the rocky slope to the yellow mark at the top.&rdquo;</div>
-                    <p>An ANYmal C with hips raised up to 10&thinsp;cm and a 4&thinsp;kg lighter trunk scrambles over loose rocks to the mark, shown with a smoother, anchored controller. The stock robot also succeeds on this start, so this task shows generality rather than a gain.</p>
+                    <p>An ANYmal C with hips raised up to 10&thinsp;cm and a 4&thinsp;kg lighter trunk trots over loose rocks to the yellow mark (9.9&thinsp;s) with a structured diagonal trot: no leaps, and only its feet touch the stones. The stock ANYmal trots up faster (6.0&thinsp;s), so this task shows generality rather than a gain.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
@@ -316,18 +326,18 @@
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/longjump_lib.mp4" data-b="videos/longjump_lib_vs.mp4" src="videos/longjump_lib.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Pit leap &rarr; long jump, zero shot <span class="badge ok">Pass</span></h3>
+                    <h3>Pit leap &rarr; long jump <span class="badge ok">Pass</span></h3>
                     <div class="robot">UNITREE GO2 &middot; QUADRUPED</div>
-                    <p>A design found on the pit-leap task (1.7&times; spatula printed feet, longer thighs), dropped into the long-jump run, clears the long jump on all 6 starts as the loop's very first proposal.</p>
+                    <p>Seeded from the pit-leap designs and searching the whole Go2 &mdash; torso, hip placement, link lengths, added joints and motors &mdash; Opus finds a robot with a 6&thinsp;cm shorter, 2&thinsp;kg lighter torso, telescoping shins and 1.6&times; motors that jumps up to 0.61&thinsp;m and counts on 6 of 6 starts. The pit-leap designs flown unchanged do not count.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/gap.mp4" data-b="videos/gap_vs.mp4" src="videos/gap.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Long jump &rarr; pit leap <span class="badge ok">Clears</span></h3>
+                    <h3>Long jump &rarr; pit leap <span class="badge ok">Pass</span></h3>
                     <div class="robot">UNITREE GO2 &middot; QUADRUPED</div>
-                    <p>Seeded from a long-jump design library, a Go2 with 2.25&times; flat-pad feet and front hips moved 12&thinsp;cm forward runs up, leaps the lava pit and lands on the far side.</p>
+                    <p>Seeded from the flat long-jump designs, with Opus proposing over the full design space, a Go2 with 20% longer thighs, stronger motors and printed rocker shins runs up and leaps the lava pit on 5 of 6 starts, 4 of them clean, with nothing but its feet touching anything between the platforms. The stock Go2 does not make it across.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
@@ -345,7 +355,7 @@
                 <div class="card-body">
                     <h3>Toss &rarr; curling <span class="badge ok">Pass</span></h3>
                     <div class="robot">UR5e + ROBOTIQ 2F-85 &middot; ARM</div>
-                    <p>Starting from a library of tossing designs, the loop finds an arm with an extra wrist twist joint, a shorter upper arm and a longer forearm that curls the stone to rest inside the house.</p>
+                    <p>Seeded with toss designs and searching the full arm design space, the loop splices a second shoulder joint into the UR5e and shortens its upper arm by 12&thinsp;cm; with smooth control the stone comes to rest in the house. Given the same polished control, the stock UR5e also makes this shot.</p>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>

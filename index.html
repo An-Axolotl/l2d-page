@@ -122,6 +122,11 @@
                         color: var(--heading); margin-bottom: 4px; line-height: 1.35; }
         .demo-card .robot { font-family: 'Inter', 'Noto Sans', sans-serif; font-size: 0.72rem; font-weight: 600; color: var(--design-2);
                             letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+        .demo-card .card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 10px; }
+        .demo-card .card-head h3 { margin-bottom: 0; }
+        .demo-card .card-head .robot { margin-bottom: 0; text-align: right; flex-shrink: 1; }
+        .demo-card .tldr { font-family: 'Inter', 'Noto Sans', sans-serif; font-size: 0.78rem; color: var(--body); margin-bottom: 8px; line-height: 1.5; }
+        .demo-card .tldr b { color: var(--design-2); font-weight: 600; }
         .demo-card .prompt { font-family: 'Noto Serif', Georgia, serif; font-style: italic; font-size: 0.82rem; color: var(--body); margin-bottom: 8px; }
         .demo-card p { font-size: 0.8rem; color: var(--secondary); line-height: 1.55; margin-bottom: 16px; }
         .badge { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
@@ -130,6 +135,8 @@
         .badge.partial { color: var(--warn); border: 1px solid var(--warn); }
 
         .credit { font-size: 0.74rem; color: var(--secondary); opacity: 0.8; margin: -8px 0 14px; }
+        .credit.footnote { margin: 14px 0 0; }
+        .demo-card h3 .star { color: var(--design-2); font-size: 0.8em; margin-left: 2px; }
         .credit a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
         .toggle {
             display: grid; grid-template-columns: 1fr 1fr; margin-top: auto;
@@ -159,7 +166,7 @@
 
 <header>
     <div class="venue-tag">Anonymous Submission</div>
-    <h1>Language to Design (L2D): Towards Self Evolving Robots</h1>
+    <h1>Language To Design (L2D): Towards Self Evolving Robots</h1>
     <div class="authors-inline">Anonymous authors &middot; paper under double-blind review</div>
     <div class="link-row">
         <a href="#videos" class="link-pill primary">🎬 Task Videos</a>
@@ -177,7 +184,7 @@
     <div class="page">
         <h2>Abstract</h2>
         <div class="abstract-text">
-            <p>Designing a robot requires expertise in both complex mechanics and control. Adapting a robot to a task relies typically on slow cycles of guessing, prototyping and testing to find where design and behavior align. This raises a fundamental question: can robot design be made as simple as describing what we want a robot to do? We present Language to Design (L2D), a co-design framework that turns a prompt and an existing robot into an optimized body, a motion that performs the task, and manufacturable parts, without tuning or training per task or per robot. The framework supports 1) language proposals grounded in measured physics, where language reflection decides what to change and physics measured in simulation decides how much, 2) a continuous design space, spanning link kinematics, motors, added joints, and continuous morphology designs for contact points such as feet and fingers, and 3) real-world fabrication, where stress-based topology optimization turns added parts into light, manufacturable components deployed zero shot on hardware. We demonstrate L2D by co-designing quadrupeds, arms, grippers, dexterous hands, and humanoids across eleven tasks on nine robots, and deploy a printed design zero shot on a real quadruped for a climbing task.</p>
+            <p>Designing a robot requires expertise in both complex mechanics and control, and relies on slow cycles of guessing, prototyping, and testing to find where design and behavior align. This raises a fundamental question: can robot design be made as simple as describing what we want a robot to do? We present Language to Design (L2D), a training-free co-design framework that turns a prompt and a starting robot into an optimized design and controller, along with manufacturable parts. L2D introduces 1) prompt-to-design proposals grounded in measured physics, where language decides what to change and simulation decides how much; 2) a general co-design space across arms, grippers, hands, quadrupeds, and humanoids, spanning kinematics, motors, added joints, and continuous contact shapes; and 3) a training-free path from prompt to fabrication, in which added parts are optimized under simulated loads, 3D printed, and deployed on hardware. We demonstrate L2D on 15 tasks across five robot families, with two tasks on real hardware.</p>
         </div>
     </div>
 </section>
@@ -185,163 +192,140 @@
 <!-- Videos -->
 <section id="videos">
     <div class="page-wide">
-        <h2>Co-Designed Robots in Action</h2>
-        <p class="method-text">Every clip below is a design L2D found for the task, replayed from its judged MuJoCo episode and rendered in Blender; <span style="color:#e8762b;font-weight:600">orange</span> marks the parts the design changed, and the title states the change. Use <em>vs. stock</em> to see the same start flown by the unmodified robot side by side.</p>
+        <h2>Co-Designed Robots In Action</h2>
+        <p class="method-text">L2D tasks showing found design v. stock robot performance. <span style="color:#e8762b;font-weight:600">Orange</span> marks design changed parts.</p>
 
-        <h3 class="sub">Main tasks</h3>
-        <p class="sub-note">Nine tasks across quadrupeds, arms, grippers, a humanoid and a hand, each found by a normal L2D search with its own design space.</p>
+        <h3 class="sub">Tasks</h3>
         <div class="demo-grid main">
             <div class="demo-card">
-                <div class="vid-wrap"><video data-a="videos/hurdle_run.mp4?v=20261029a" data-b="videos/hurdle_run_vs.mp4?v=20261029a" src="videos/hurdle_run.mp4?v=20261029a" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="vid-wrap"><video data-a="videos/hurdle_run2.mp4?v=20261105h" data-b="videos/hurdle_run2_vs.mp4?v=20261105h" src="videos/hurdle_run2.mp4?v=20261105h" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Hurdle</h3>
-                    <div class="robot">UNITREE GO2 + PRINTED PARTS &middot; QUADRUPED</div>
-                    <div class="prompt">&ldquo;Hurdle over the wall in front of you: get over it and past it.&rdquo;</div>
-                    <p>Printed calf extensions let the Go2 clear the 0.30&thinsp;m rail in one clean flight and land standing; the stock Go2 clips the rail.</p>
+                    <div class="card-head"><h3>Hurdle</h3><div class="robot">UNITREE GO2 + PRINTED PARTS &middot; QUADRUPED</div></div>
+                    <div class="prompt">Prompt: &ldquo;Hurdle over the wall in front of you: get over it and past it.&rdquo;</div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/toss_or2.mp4?v=20261030c" data-b="videos/toss_or2_vs.mp4?v=20261030c" src="videos/toss_or2.mp4?v=20261030c" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Toss</h3>
-                    <div class="robot">UR5e + ROBOTIQ 2F-85 &middot; ARM</div>
-                    <div class="prompt">&ldquo;Throw the ball as far as you can.&rdquo;</div>
-                    <p>A forearm stretched 2.4&times; throws the ball 33&thinsp;m; the stock arm throws 1.3&thinsp;m.</p>
+                    <div class="card-head"><h3>Toss</h3><div class="robot">UR5e + ROBOTIQ 2F-85 &middot; ARM</div></div>
+                    <div class="prompt">Prompt: &ldquo;Throw the ball as far as you can.&rdquo;</div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/curl_smooth.mp4?v=20261030a" data-b="videos/curl_smooth_vs.mp4?v=20261030a" src="videos/curl_smooth.mp4?v=20261030a" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Curling</h3>
-                    <div class="robot">KINOVA GEN3 + 2F-85 &middot; ARM</div>
-                    <div class="prompt">&ldquo;Slide the stone down the ice and let go of it before the red line.&rdquo;</div>
-                    <p>A shorter upper arm and damped wrist release the stone smoothly to rest 4.5&thinsp;cm from the button; the stock stone stops outside the house.</p>
+                    <div class="card-head"><h3>Curling</h3><div class="robot">KINOVA GEN3 + 2F-85 &middot; ARM</div></div>
+                    <div class="prompt">Prompt: &ldquo;Slide the stone down the ice and let go of it before the red line.&rdquo;</div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/binpick.mp4?v=20261003d" data-b="videos/binpick_vs.mp4?v=20261003d" src="videos/binpick.mp4?v=20261003d" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Bin pick</h3>
-                    <div class="robot">FRANKA FR3 + GENERATED GRIPPER</div>
-                    <div class="prompt">&ldquo;Pick the can up out of the bin &hellip; put it down inside the green bin.&rdquo;</div>
-                    <p>A generated four-finger gripper moves the can to the green bin upright in under 3&thinsp;s, on 6 of 6 held-out starts.</p>
+                    <div class="card-head"><h3>Bin Pick</h3><div class="robot">FRANKA FR3 + GENERATED GRIPPER</div></div>
+                    <div class="prompt">Prompt: &ldquo;Pick the can up out of the bin &hellip; put it down inside the green bin.&rdquo;</div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/freethrow_or.mp4?v=20261029o" data-b="videos/freethrow_or_vs.mp4?v=20261029o" src="videos/freethrow_or.mp4?v=20261029o" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Free throw</h3>
-                    <div class="robot">UNITREE G1 + HANDS &middot; HUMANOID</div>
-                    <div class="prompt">&ldquo;Shoot it into the hoop without stepping over the line.&rdquo;</div>
-                    <p>Retuned arm servos sink the shot on 6 of 6 held-out starts.</p>
+                    <div class="card-head"><h3>Free Throw</h3><div class="robot">UNITREE G1 + HANDS &middot; HUMANOID</div></div>
+                    <div class="prompt">Prompt: &ldquo;Shoot it into the hoop without stepping over the line.&rdquo;</div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/pen_or.mp4?v=20261029o" data-b="videos/pen_or_vs.mp4?v=20261029o" src="videos/pen_or.mp4?v=20261029o" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Pen spin</h3>
-                    <div class="robot">SHARPA HAND &middot; DEXTEROUS HAND</div>
-                    <div class="prompt">&ldquo;Spin it one full turn without dropping it, ending steady.&rdquo;</div>
-                    <p>The hardest task: wider thumb and knuckle travel turn the pen a full turn on this start; other starts make partial turns.</p>
+                    <div class="card-head"><h3>Pen Spin</h3><div class="robot">SHARPA HAND &middot; DEXTEROUS HAND</div></div>
+                    <div class="prompt">Prompt: &ldquo;Spin it one full turn without dropping it, ending steady.&rdquo;</div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/climb_still.mp4?v=20261030a" data-b="videos/climb_attempt_vs.mp4?v=20261030b" src="videos/climb_still.mp4?v=20261030a" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Box climb</h3>
-                    <div class="robot">UNITREE GO2 + PRINTED PARTS &middot; QUADRUPED</div>
-                    <div class="prompt">&ldquo;Climb up onto the box in front of you (0.45&thinsp;m high) and stand on it.&rdquo;</div>
-                    <p>Flat printed boots let the Go2 climb the 0.45&thinsp;m box within real motor limits and stand still (38 of 40 perturbed robots); the stock Go2 topples backward.</p>
+                    <div class="card-head"><h3>Box Climb</h3><div class="robot">UNITREE GO2 + PRINTED PARTS &middot; QUADRUPED</div></div>
+                    <div class="prompt">Prompt: &ldquo;Climb up onto the box in front of you (0.45&thinsp;m high) and stand on it.&rdquo;</div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/soccer_single.mp4?v=20261029a" data-b="videos/soccer_strong_vs.mp4?v=20261030k" src="videos/soccer_single.mp4?v=20261029a" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Soccer</h3>
-                    <div class="robot">UNITREE ALIENGO &middot; QUADRUPED</div>
-                    <div class="prompt">&ldquo;Shoot this soccer ball into the top left hand corner of the net &hellip; without crossing over the line.&rdquo;</div>
-                    <p>Cup-shaped printed feet strike the ball once into the top-left corner, then the robot stands still; a strong stock-Aliengo search also scores, on 5 of 12 starts (design: 7 of 12).</p>
+                    <div class="card-head"><h3>Soccer</h3><div class="robot">UNITREE ALIENGO &middot; QUADRUPED</div></div>
+                    <div class="prompt">Prompt: &ldquo;Quickly shoot this soccer ball into the top left hand corner of the net &hellip; without crossing over the line.&rdquo;</div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
-                <div class="vid-wrap"><video data-a="videos/longjump_or.mp4?v=20261029o" data-b="videos/longjump_or_vs.mp4?v=20261029o" src="videos/longjump_or.mp4?v=20261029o" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="vid-wrap"><video data-a="videos/longkick2.mp4?v=20261105L" data-b="videos/longkick2_vs.mp4?v=20261105L" src="videos/longkick2.mp4?v=20261105L" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Standing long jump</h3>
-                    <div class="robot">UNITREE GO2 &middot; QUADRUPED</div>
-                    <div class="prompt">&ldquo;Jump as far forward as you can, landing on your feet.&rdquo;</div>
-                    <p>Telescoping shins and pointed-toe feet jump 0.43&thinsp;m (5 of 6 starts); the stock Go2 counts on none.</p>
+                    <div class="card-head"><h3>Long Kick</h3><div class="robot">UNITREE GO2 + PRINTED FEET &middot; QUADRUPED</div></div>
+                    <div class="prompt">Prompt: &ldquo;Kick the ball as far as possible from a standing kick.&rdquo;</div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
-        </div>
-
-        <h3 class="sub">Hurdle under real motor limits</h3>
-        <p class="sub-note">The Go2 on a 0.35&thinsp;m hurdle, simulated in MuJoCo and rendered in Blender, both under the robot's real motor limits (45&thinsp;N&thinsp;m, k<sub>p</sub>&nbsp;25): left, the stock Go2 with its best searched jump; right, the same Go2 with L2D's printed clamp feet (half speed).</p>
-        <div class="demo-grid">
-            <div class="demo-card" style="grid-column: 1 / -1;">
-                <div class="vid-wrap"><video src="videos/hurdle_feet35_sbs.mp4?v=20261102c" autoplay loop muted playsinline preload="metadata"></video></div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/longjump_a1.mp4?v=20261106a" data-b="videos/longjump_a1_vs.mp4?v=20261106a" src="videos/longjump_a1.mp4?v=20261106a" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Hurdle: stock Go2 vs. printed clamp feet</h3>
-                    <div class="robot">UNITREE GO2 &middot; REAL MOTOR LIMITS &middot; SIDE BY SIDE</div>
-                    <p>The stock Go2 falls short of the 0.35&thinsp;m bar; with the printed clamp feet it clears it and lands standing.</p>
+                    <div class="card-head"><h3>Standing Long Jump</h3><div class="robot">UNITREE A1 &middot; QUADRUPED</div></div>
+                    <div class="prompt">Prompt: &ldquo;Jump as far forward as you can, landing on your feet.&rdquo;</div>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
-        </div>
-
-        <h3 class="sub">Additional tasks</h3>
-        <p class="sub-note">Four more tasks, run with the loop unchanged.</p>
-        <div class="demo-grid two">
+        
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/hammer_fast.mp4?v=20261030h" data-b="videos/hammer_fast_vs.mp4?v=20261030h" src="videos/hammer_fast.mp4?v=20261030h" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Hammer</h3>
-                    <div class="robot">FRANKA PANDA + UMI GRIPPER &middot; GRIPPER ONLY</div>
-                    <div class="prompt">&ldquo;Use the hammer to drive the nail into the wooden board.&rdquo;</div>
-                    <p>Shorter, lighter padded fingers with a stiffer jaw grasp the hammer securely in 2.4&ndash;4.9 s versus stock&rsquo;s 5.2 s on all 6 held-out starts.</p>
-                    <div class="credit">Environment: the hammer&ndash;nail task from <a href="https://dexjoco.github.io/" target="_blank" rel="noopener">DexJoCo</a> (MIT), with a contact-culling fix and a jaw force cap; only the hand differs.</div>
+                    <div class="card-head"><h3>Hammer<sup class="star">*</sup></h3><div class="robot">FRANKA PANDA + UMI GRIPPER &middot; GRIPPER ONLY</div></div>
+                    <div class="prompt">Prompt: &ldquo;Use the hammer to drive the nail into the wooden board.&rdquo;</div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/usb_insert4.mp4?v=20261031u" data-b="videos/usb_insert4_vs.mp4?v=20261031u" src="videos/usb_insert4.mp4?v=20261031u" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>USB insertion</h3>
-                    <div class="robot">FRANKA PANDA + ALLEGRO HAND &middot; HAND ONLY</div>
-                    <div class="prompt">&ldquo;The USB flash drive is in your hand: insert it fully into the laptop&rsquo;s USB port.&rdquo;</div>
-                    <p>Slimmer, shorter fingertips and stiffer index/thumb servos seat the misaligned drive on 23 of 24 starts versus stock&rsquo;s 19, faster on 19.</p>
-                    <div class="credit">Robot and arena from <a href="https://dexjoco.github.io/" target="_blank" rel="noopener">DexJoCo</a> (MIT); the task follows DexJoCo2&rsquo;s USB-insertion description, built here in MuJoCo.</div>
+                    <div class="card-head"><h3>USB Insertion<sup class="star">*</sup></h3><div class="robot">FRANKA PANDA + ALLEGRO HAND &middot; HAND ONLY</div></div>
+                    <div class="prompt">Prompt: &ldquo;The USB flash drive is in your hand: insert it fully into the laptop&rsquo;s USB port.&rdquo;</div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/rocky_fast.mp4?v=20261030r" data-b="videos/rocky_fast_vs.mp4?v=20261030r" src="videos/rocky_fast.mp4?v=20261030r" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Rocky slope</h3>
-                    <div class="robot">ANYMAL C &middot; QUADRUPED</div>
-                    <div class="prompt">&ldquo;Sprint up the rocky slope to the yellow mark at the top.&rdquo;</div>
-                    <p>A shorter trunk and longer thighs walk to the mark in 3.7&thinsp;s, never airborne; the stock ANYmal needs 4.2&thinsp;s from the same start.</p>
+                    <div class="card-head"><h3>Rocky Slope</h3><div class="robot">ANYMAL C &middot; QUADRUPED</div></div>
+                    <div class="prompt">Prompt: &ldquo;Sprint up the rocky slope to the yellow mark at the top.&rdquo;</div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/yamscoop.mp4?v=20261030y" data-b="videos/yamscoop_vs.mp4?v=20261030y" src="videos/yamscoop.mp4?v=20261030y" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Scoop</h3>
-                    <div class="robot">YAM ARM &middot; END EFFECTOR ONLY</div>
-                    <div class="prompt">&ldquo;Scoop the balls out of the blue bin and tip them into the green bin, as many as you can as fast as you can.&rdquo;</div>
-                    <p>A printed deep-walled scoop replaces the gripper and moves 12+ of 16 balls in 4.4&ndash;5.7&thinsp;s on 6 of 6 held-out starts; the stock jaw never gets past 3.</p>
+                    <div class="card-head"><h3>Scoop</h3><div class="robot">YAM ARM &middot; END EFFECTOR ONLY</div></div>
+                    <div class="prompt">Prompt: &ldquo;Scoop the balls out of the blue bin and tip them into the green bin, as many as you can as fast as you can.&rdquo;</div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
         </div>
+        <p class="credit footnote"><sup>*</sup> Robot and arena from <a href="https://dexjoco.github.io/" target="_blank" rel="noopener">DexJoCo</a> (MIT). Hammer: DexJoCo&rsquo;s hammer&ndash;nail task with a contact-culling fix and a jaw force cap. USB insertion: follows DexJoCo2&rsquo;s description, built here in MuJoCo.</p>
+
+        <h3 class="sub">Hurdle Under Real Motor Limits</h3>
+        <p class="sub-note">Go2 on a 0.35&thinsp;m tall hurdle with its real motor gains and limits (k<sub>p</sub>&nbsp;25, k<sub>d</sub>&nbsp;0.5, 45&thinsp;N&thinsp;m torque limit on every joint); left, the stock Go2; right, L2D's printed clamp feet (half speed).</p>
+        <div class="demo-grid">
+            <div class="demo-card" style="grid-column: 1 / -1;">
+                <div class="vid-wrap"><video src="videos/hurdle_feet35_sbs.mp4?v=20261102c" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Hurdle: Stock Go2 Vs. Printed Clamp Feet</h3><div class="robot">UNITREE GO2 &middot; REAL MOTOR LIMITS &middot; SIDE BY SIDE</div></div>
+                    <div class="prompt">Prompt: &ldquo;Hurdle over the 0.35&thinsp;m wall in front of you: get over it and past it, using additive parts only.&rdquo;</div>
+                    <div class="prompt" style="font-style: normal;">Fabrication: the printed feet were lightened with FEA (stress-based topology optimization), the fabrication step of the L2D pipeline.</div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -351,42 +335,34 @@
 <section id="transfer">
     <div class="page-wide">
         <h2>Transfer Between Tasks</h2>
-        <p class="method-text" style="max-width:900px">Designs found on one task seed the first round of a new run on a related task; across robots, the source run's physics map seeds the search instead.</p>
+        <p class="method-text" style="max-width:900px">Designs found on one task seed the initial search for a related task.</p>
         <div class="demo-grid two">
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/longjump_lib_long.mp4?v=20261029L" data-b="videos/longjump_lib_long_vs.mp4?v=20261029L" src="videos/longjump_lib_long.mp4?v=20261029L" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Pit leap &rarr; long jump</h3>
-                    <div class="robot">UNITREE GO2 &middot; QUADRUPED</div>
-                    <p>A pit-leap design, reworked across the whole body, jumps up to 0.61&thinsp;m on 6 of 6 starts.</p>
+                    <div class="card-head"><h3>Pit Leap &rarr; Long Jump</h3><div class="robot">UNITREE GO2 &middot; QUADRUPED</div></div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video data-a="videos/gap_feet.mp4?v=20261030g" data-b="videos/gap_feet_vs.mp4?v=20261030g" src="videos/gap_feet.mp4?v=20261030g" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Long jump &rarr; pit leap</h3>
-                    <div class="robot">UNITREE GO2 &middot; QUADRUPED</div>
-                    <p>From standing, the design (longer rear legs, printed shins) leaps the pit feet-only on 4 of 8 starts; the stock Go2 crosses on none.</p>
+                    <div class="card-head"><h3>Long Jump &rarr; Pit Leap</h3><div class="robot">UNITREE GO2 &middot; QUADRUPED</div></div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
-                <div class="vid-wrap"><video data-a="videos/curl_xfer_or.mp4?v=20261029o" data-b="videos/curl_xfer_or_vs.mp4?v=20261029o" src="videos/curl_xfer_or.mp4?v=20261029o" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="vid-wrap"><video data-a="videos/curl_xfer_smooth.mp4?v=20261105c" data-b="videos/curl_xfer_smooth_vs.mp4?v=20261105c" src="videos/curl_xfer_smooth.mp4?v=20261105c" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Toss &rarr; curling</h3>
-                    <div class="robot">UR5e + ROBOTIQ 2F-85 &middot; ARM</div>
-                    <p>Seeded from toss designs, an extra shoulder joint and shorter upper arm put the stone in the house; the stock UR5e also makes it.</p>
+                    <div class="card-head"><h3>Toss &rarr; Curling</h3><div class="robot">UR5e + ROBOTIQ 2F-85 &middot; ARM</div></div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
-                <div class="vid-wrap"><video data-a="videos/scoop_xfer.mp4?v=20261103y" data-b="videos/scoop_xfer_vs.mp4?v=20261103x" src="videos/scoop_xfer.mp4?v=20261103y" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="vid-wrap"><video data-a="videos/scoop_warm.mp4?v=20261105w" data-b="videos/scoop_warm_vs.mp4?v=20261105w" src="videos/scoop_warm.mp4?v=20261105w" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <h3>Bin pick &rarr; scoop</h3>
-                    <div class="robot">FR3 &rarr; YAM + PRINTED SCOOP &middot; ARM</div>
-                    <p>The bin-pick gripper itself, bolted to the YAM, moves 0 of 16 balls (left). What carries over is its physics map: with it, the scoop search scores at least 14.0 within 100 designs on all three seeds (12.2 on average, as low as 8.6, without), and this scoop moves 14 of 16 balls (right).</p>
-                    <div class="toggle"><button class="active" data-v="a">vs. bin-pick gripper</button><button data-v="b">vs. stock</button></div>
+                    <div class="card-head"><h3>Bin Pick &rarr; Scoop</h3><div class="robot">FR3 &rarr; YAM + BIN-PICK GRIPPER &middot; ARM</div></div>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
         </div>

@@ -310,8 +310,32 @@
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/h1run.mp4?v=20261107a" data-b="videos/h1run_vs.mp4?v=20261107a" src="videos/h1run.mp4?v=20261107a" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Run Fast</h3><div class="robot">UNITREE H1 &middot; HUMANOID</div></div>
+                    <div class="prompt">Prompt: &ldquo;Run straight forward as fast as you can and stay on your feet.&rdquo;</div>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/drone.mp4?v=20261107a" data-b="videos/drone_vs.mp4?v=20261107a" src="videos/drone.mp4?v=20261107a" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Drone Race</h3><div class="robot">SKYDIO X2 &middot; DRONE</div></div>
+                    <div class="prompt">Prompt: &ldquo;Fly one lap of the eight-gate race track from a standing start as fast as you can: through every gate in order and back through the first, touching nothing.&rdquo;</div>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video data-a="videos/handover.mp4?v=20261107a" data-b="videos/handover_vs.mp4?v=20261107a" src="videos/handover.mp4?v=20261107a" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Handover<sup class="star">&dagger;</sup></h3><div class="robot">TWO ALOHA ARMS &middot; BIMANUAL ARM</div></div>
+                    <div class="prompt">Prompt: &ldquo;Hand the cube from one arm to the other as quickly as possible, and hold it steady at the goal.&rdquo;</div>
+                    <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
+                </div>
+            </div>
         </div>
-        <p class="credit footnote"><sup>*</sup> Robot and arena from <a href="https://dexjoco.github.io/" target="_blank" rel="noopener">DexJoCo</a> (MIT). Hammer: DexJoCo&rsquo;s hammer&ndash;nail task with a contact-culling fix and a jaw force cap. USB insertion: follows DexJoCo2&rsquo;s description, built here in MuJoCo.</p>
+        <p class="credit footnote"><sup>*</sup> Robot and arena from <a href="https://dexjoco.github.io/" target="_blank" rel="noopener">DexJoCo</a> (MIT). Hammer: DexJoCo&rsquo;s hammer&ndash;nail task with a contact-culling fix and a jaw force cap. USB insertion: follows DexJoCo2&rsquo;s description, built here in MuJoCo. <sup>&dagger;</sup> Task and ALOHA scene from <a href="https://github.com/google-deepmind/mujoco_mpc" target="_blank" rel="noopener">MuJoCo MPC</a> (Apache 2.0); both arms share one design.</p>
 
         <h3 class="sub">Hurdle Under Real Motor Limits</h3>
         <p class="sub-note">Go2 on a 0.35&thinsp;m tall hurdle with its real motor gains and limits (k<sub>p</sub>&nbsp;25, k<sub>d</sub>&nbsp;0.5, 45&thinsp;N&thinsp;m torque limit on every joint); left, the stock Go2; right, L2D's printed clamp feet (half speed).</p>
@@ -352,14 +376,14 @@
                 </div>
             </div>
             <div class="demo-card">
-                <div class="vid-wrap"><video data-a="videos/curl_xfer_smooth.mp4?v=20261105c" data-b="videos/curl_xfer_smooth_vs.mp4?v=20261105c" src="videos/curl_xfer_smooth.mp4?v=20261105c" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="vid-wrap"><video data-a="videos/curl_xfer_smooth.mp4?v=20261105c" data-b="videos/curl_xfer_smooth_vs2.mp4?v=20261106s" src="videos/curl_xfer_smooth.mp4?v=20261105c" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
                     <div class="card-head"><h3>Toss &rarr; Curling</h3><div class="robot">UR5e + ROBOTIQ 2F-85 &middot; ARM</div></div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>
                 </div>
             </div>
             <div class="demo-card">
-                <div class="vid-wrap"><video data-a="videos/scoop_warm.mp4?v=20261105w" data-b="videos/scoop_warm_vs.mp4?v=20261105w" src="videos/scoop_warm.mp4?v=20261105w" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="vid-wrap"><video data-a="videos/scoop_warm.mp4?v=20261105w" data-b="videos/scoop_warm_vs2.mp4?v=20261106s" src="videos/scoop_warm.mp4?v=20261105w" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
                     <div class="card-head"><h3>Bin Pick &rarr; Scoop</h3><div class="robot">FR3 &rarr; YAM + BIN-PICK GRIPPER &middot; ARM</div></div>
                     <div class="toggle"><button class="active" data-v="a">L2D design</button><button data-v="b">vs. stock</button></div>

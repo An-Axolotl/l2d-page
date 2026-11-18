@@ -153,6 +153,15 @@
         .toggle button.active { background: var(--design); color: #fff; }
         .toggle button:focus-visible { outline: 2px solid var(--design-2); outline-offset: -2px; }
 
+        /* Real world: stock card left, design card right */
+        .rw-grid { gap: 20px 24px; }
+        .rw-grid .demo-card::before { background: linear-gradient(90deg, var(--muted) 0%, var(--secondary) 50%, var(--muted) 100%); }
+        .rw-grid .demo-card.design::before { background: linear-gradient(90deg, var(--design) 0%, var(--design-2) 50%, var(--design) 100%); }
+        .rw-grid .demo-card { border-color: #2e2e34; }
+        .rw-grid .demo-card.design { border-color: #3a2e28; }
+        .rw-grid .demo-card:not(.design) .robot { color: var(--secondary); }
+        .rw-grid .demo-card p { margin-bottom: 0; }
+        .rw-grid .trial { font-family: 'Inter', 'Noto Sans', sans-serif; font-size: 0.7rem; font-weight: 600; color: var(--secondary); letter-spacing: 0.08em; text-transform: uppercase; margin-left: 8px; vertical-align: 2px; }
         .tip {
             margin-top: 24px; padding: 14px 18px; background: rgba(123,157,232,0.07); border-left: 3px solid var(--accent);
             border-radius: 3px; font-size: 0.85rem; color: var(--body); line-height: 1.6;
@@ -170,6 +179,7 @@
     <div class="authors-inline">Anonymous authors &middot; paper under double-blind review</div>
     <div class="link-row">
         <a href="#videos" class="link-pill primary">🎬 Task Videos</a>
+        <a href="#real-world" class="link-pill">🤖 Real World</a>
         <a href="#transfer" class="link-pill">🔁 Transfer</a>
     </div>
 </header>
@@ -354,6 +364,108 @@
 </section>
 
 
+
+<!-- Real World -->
+<section id="real-world">
+    <div class="page-wide">
+        <h2>Real World Results</h2>
+        <p class="method-text" style="max-width:900px">Two L2D designs printed and run on hardware. Each row is one trial: the <strong>stock robot on the left</strong>, the <strong>L2D design on the right</strong>. Three trials per task.</p>
+
+        <h3 class="sub">Soccer: Stock Go2 Vs. Printed Kicking Boot</h3>
+        <p class="sub-note">Unitree Go2 kicking a ball from a standing start. Left: stock foot. Right: the L2D printed boot clipped over the kicking foot. All clips in real time.</p>
+        <div class="demo-grid two rw-grid">
+            <div class="demo-card">
+                <div class="vid-wrap"><video src="videos/real/go2_stock_1.mp4?v=20261117r" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Soccer &middot; Stock <span class="trial">trial 1</span></h3><div class="robot">UNITREE GO2 &middot; STOCK</div></div>
+                    <p>Stock Go2 kicking with its bare foot. Real time.</p>
+                </div>
+            </div>
+            <div class="demo-card design">
+                <div class="vid-wrap"><video src="videos/real/go2_boot_1.mp4?v=20261117r" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Soccer &middot; L2D Design <span class="trial">trial 1</span></h3><div class="robot">UNITREE GO2 + PRINTED KICKING BOOT</div></div>
+                    <p>Same robot and kick with the L2D printed boot on the kicking foot. Real time.</p>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video src="videos/real/go2_stock_2.mp4?v=20261117r" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Soccer &middot; Stock <span class="trial">trial 2</span></h3><div class="robot">UNITREE GO2 &middot; STOCK</div></div>
+                    <p>Stock Go2 kicking with its bare foot. Real time.</p>
+                </div>
+            </div>
+            <div class="demo-card design">
+                <div class="vid-wrap"><video src="videos/real/go2_boot_2.mp4?v=20261117r" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Soccer &middot; L2D Design <span class="trial">trial 2</span></h3><div class="robot">UNITREE GO2 + PRINTED KICKING BOOT</div></div>
+                    <p>Same robot and kick with the L2D printed boot on the kicking foot. Real time.</p>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video src="videos/real/go2_stock_3.mp4?v=20261117r" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Soccer &middot; Stock <span class="trial">trial 3</span></h3><div class="robot">UNITREE GO2 &middot; STOCK</div></div>
+                    <p>Stock Go2 kicking with its bare foot. Real time.</p>
+                </div>
+            </div>
+            <div class="demo-card design">
+                <div class="vid-wrap"><video src="videos/real/go2_boot_3.mp4?v=20261117r" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Soccer &middot; L2D Design <span class="trial">trial 3</span></h3><div class="robot">UNITREE GO2 + PRINTED KICKING BOOT</div></div>
+                    <p>Same robot and kick with the L2D printed boot on the kicking foot. Real time.</p>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="sub">Scoop: Stock Yam Gripper Vs. Printed Scoop</h3>
+        <p class="sub-note">Yam arm emptying a bin of balls into the neighbouring bin. Left: stock parallel gripper, one or two balls per grasp. Right: the L2D printed scoop. Clips are sped up to fit under ten seconds; the speed factor is shown in the top-right corner.</p>
+        <div class="demo-grid two rw-grid">
+            <div class="demo-card">
+                <div class="vid-wrap"><video src="videos/real/yam_stock_1.mp4?v=20261117r" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Scoop &middot; Stock <span class="trial">trial 1</span></h3><div class="robot">YAM ARM &middot; STOCK GRIPPER</div></div>
+                    <p>Stock parallel gripper moving balls from the bin one grasp at a time. Sped up; the factor is shown in the corner.</p>
+                </div>
+            </div>
+            <div class="demo-card design">
+                <div class="vid-wrap"><video src="videos/real/yam_scoop_1.mp4?v=20261117r" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Scoop &middot; L2D Design <span class="trial">trial 1</span></h3><div class="robot">YAM ARM + L2D PRINTED SCOOP</div></div>
+                    <p>Printed scoop from the Bin Pick &rarr; Scoop transfer, moving balls by the scoopful. Sped up; the factor is shown in the corner.</p>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video src="videos/real/yam_stock_2.mp4?v=20261117r" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Scoop &middot; Stock <span class="trial">trial 2</span></h3><div class="robot">YAM ARM &middot; STOCK GRIPPER</div></div>
+                    <p>Stock parallel gripper moving balls from the bin one grasp at a time. Sped up; the factor is shown in the corner.</p>
+                </div>
+            </div>
+            <div class="demo-card design">
+                <div class="vid-wrap"><video src="videos/real/yam_scoop_2.mp4?v=20261117r" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Scoop &middot; L2D Design <span class="trial">trial 2</span></h3><div class="robot">YAM ARM + L2D PRINTED SCOOP</div></div>
+                    <p>Printed scoop from the Bin Pick &rarr; Scoop transfer, moving balls by the scoopful. Sped up; the factor is shown in the corner.</p>
+                </div>
+            </div>
+            <div class="demo-card">
+                <div class="vid-wrap"><video src="videos/real/yam_stock_3.mp4?v=20261117r" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Scoop &middot; Stock <span class="trial">trial 3</span></h3><div class="robot">YAM ARM &middot; STOCK GRIPPER</div></div>
+                    <p>Stock parallel gripper moving balls from the bin one grasp at a time. Sped up; the factor is shown in the corner.</p>
+                </div>
+            </div>
+            <div class="demo-card design">
+                <div class="vid-wrap"><video src="videos/real/yam_scoop_3.mp4?v=20261117r" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="card-head"><h3>Scoop &middot; L2D Design <span class="trial">trial 3</span></h3><div class="robot">YAM ARM + L2D PRINTED SCOOP</div></div>
+                    <p>Printed scoop from the Bin Pick &rarr; Scoop transfer, moving balls by the scoopful. Sped up; the factor is shown in the corner.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Transfer -->
 <section id="transfer">

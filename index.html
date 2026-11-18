@@ -167,7 +167,7 @@
         .rw-pipe .demo-card .pipe-prompt { aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; padding: 20px 28px;
             background: #141216; font-family: 'Noto Serif', Georgia, serif; font-style: italic; font-size: 1.15rem; line-height: 1.5; color: var(--heading); text-align: center; }
         .rw-pipe .demo-card .pipe-prompt .q { color: var(--design-2); font-size: 1.6em; line-height: 0; vertical-align: -0.3em; }
-        .rw-pipe .demo-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+        .rw-pipe .demo-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #fff; display: block; }
         .rw-pipe .demo-card .step { font-family: 'Inter', 'Noto Sans', sans-serif; font-size: 0.7rem; font-weight: 600; color: var(--design-2); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
         .rw-grid .trial { font-family: 'Inter', 'Noto Sans', sans-serif; font-size: 0.7rem; font-weight: 600; color: var(--secondary); letter-spacing: 0.08em; text-transform: uppercase; margin-left: 8px; vertical-align: 2px; }
         .tip {
@@ -377,33 +377,26 @@
 <section id="real-world">
     <div class="page-wide">
         <h2>Real World Results</h2>
-        <p class="method-text" style="max-width:900px">Two L2D designs printed and run on hardware. Prompt, DIAL-MPC controllers in simulation, printed part, then three hardware trials. <strong>Stock left, L2D design right.</strong></p>
+        <p class="method-text" style="max-width:900px"><strong>Stock left, L2D design right.</strong></p>
 
         <h3 class="sub">Soccer: Stock Go2 Vs. Printed Kicking Boot</h3>
-        <p class="sub-note">Standing kick. Real time, cut before the robot drops into damping mode.</p>
         <div class="demo-grid rw-grid rw-pipe">
             <div class="demo-card design">
                 <div class="pipe-prompt"><span><span class="q">&ldquo;</span>Kick the ball as far as possible from a standing kick.<span class="q">&rdquo;</span></span></div>
                 <div class="card-body">
                     <div class="step">1 &middot; Prompt</div>
-                    <div class="card-head"><h3>Prompt</h3><div class="robot">UNITREE GO2 &middot; LONG KICK</div></div>
-                    <p>Given to L2D with the stock robot.</p>
                 </div>
             </div>
             <div class="demo-card design">
                 <div class="vid-wrap"><video src="videos/real/go2_sim_vs.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <div class="step">2 &middot; Simulation, deployed controllers</div>
-                    <div class="card-head"><h3>DIAL-MPC in simulation</h3><div class="robot">STOCK (LEFT) VS. L2D DESIGN (RIGHT)</div></div>
-                    <p>The deployed controllers replayed in sim. Carry 1.2&thinsp;m (stock) vs. 1.5&thinsp;m (boot).</p>
+                    <div class="step">2 &middot; DIAL-MPC in sim</div>
                 </div>
             </div>
             <div class="demo-card design">
-                <img src="figures/real/boot_print.jpg?v=3" alt="Blender render of the printed prosthetic blade boot (orange) and its green back piece" loading="lazy">
+                <img src="figures/real/boot_print.jpg?v=4" alt="Blender render of the printed prosthetic blade boot (orange) and its green back piece" loading="lazy">
                 <div class="card-body">
                     <div class="step">3 &middot; Printed part</div>
-                    <div class="card-head"><h3>Printed boot</h3><div class="robot">PLA, FDM PRINTED</div></div>
-                    <p>Blender render of the print files, side profile: prosthetic blade boot (orange), back piece (green).</p>
                 </div>
             </div>
         </div>
@@ -411,72 +404,60 @@
             <div class="demo-card">
                 <div class="vid-wrap"><video src="videos/real/go2_stock_1_raw.mp4?v=20261117u" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <div class="card-head"><h3>Soccer &middot; Stock <span class="trial">trial 1</span></h3><div class="robot">UNITREE GO2 &middot; STOCK</div></div>
-                    <p>Bare foot, stance balance controller on.</p>
+                    <div class="card-head"><h3>Soccer &middot; Stock <span class="trial">trial 1</span></h3></div>
                 </div>
             </div>
             <div class="demo-card design">
                 <div class="vid-wrap"><video src="videos/real/go2_boot_1_raw.mp4?v=20261117u" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <div class="card-head"><h3>Soccer &middot; L2D Design <span class="trial">trial 1</span></h3><div class="robot">UNITREE GO2 + PRINTED KICKING BOOT</div></div>
-                    <p>Printed boot on the kicking foot.</p>
+                    <div class="card-head"><h3>Soccer &middot; L2D Design <span class="trial">trial 1</span></h3></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video src="videos/real/go2_stock_2_raw.mp4?v=20261117u" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <div class="card-head"><h3>Soccer &middot; Stock <span class="trial">trial 2</span></h3><div class="robot">UNITREE GO2 &middot; STOCK</div></div>
-                    <p>Bare foot, stance balance controller on.</p>
+                    <div class="card-head"><h3>Soccer &middot; Stock <span class="trial">trial 2</span></h3></div>
                 </div>
             </div>
             <div class="demo-card design">
                 <div class="vid-wrap"><video src="videos/real/go2_boot_2_raw.mp4?v=20261117u" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <div class="card-head"><h3>Soccer &middot; L2D Design <span class="trial">trial 2</span></h3><div class="robot">UNITREE GO2 + PRINTED KICKING BOOT</div></div>
-                    <p>Printed boot on the kicking foot.</p>
+                    <div class="card-head"><h3>Soccer &middot; L2D Design <span class="trial">trial 2</span></h3></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video src="videos/real/go2_stock_3_raw.mp4?v=20261117u" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <div class="card-head"><h3>Soccer &middot; Stock <span class="trial">trial 3</span></h3><div class="robot">UNITREE GO2 &middot; STOCK</div></div>
-                    <p>Bare foot, open-loop baseline kick (no balance layer).</p>
+                    <div class="card-head"><h3>Soccer &middot; Stock <span class="trial">trial 3</span></h3></div>
+                    <p>Open loop, no balance layer.</p>
                 </div>
             </div>
             <div class="demo-card design">
                 <div class="vid-wrap"><video src="videos/real/go2_boot_3_raw.mp4?v=20261117u" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <div class="card-head"><h3>Soccer &middot; L2D Design <span class="trial">trial 3</span></h3><div class="robot">UNITREE GO2 + PRINTED KICKING BOOT</div></div>
-                    <p>Printed boot on the kicking foot.</p>
+                    <div class="card-head"><h3>Soccer &middot; L2D Design <span class="trial">trial 3</span></h3></div>
                 </div>
             </div>
         </div>
 
         <h3 class="sub">Scoop: Stock Yam Gripper Vs. Printed Scoop</h3>
-        <p class="sub-note">Bin to bin. Blind open-loop replay, 12x speed.</p>
         <div class="demo-grid rw-grid rw-pipe">
             <div class="demo-card design">
                 <div class="pipe-prompt"><span><span class="q">&ldquo;</span>Scoop the balls out of the blue bin and tip them into the green bin, as many as you can as fast as you can.<span class="q">&rdquo;</span></span></div>
                 <div class="card-body">
                     <div class="step">1 &middot; Prompt</div>
-                    <div class="card-head"><h3>Prompt</h3><div class="robot">YAM ARM &middot; SCOOP</div></div>
-                    <p>Given to L2D with the stock robot.</p>
                 </div>
             </div>
             <div class="demo-card design">
                 <div class="vid-wrap"><video src="videos/real/yam_sim_vs.mp4?v=20261118a" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <div class="step">2 &middot; Simulation, deployed controllers</div>
-                    <div class="card-head"><h3>DIAL-MPC in simulation</h3><div class="robot">STOCK (LEFT) VS. L2D DESIGN (RIGHT)</div></div>
-                    <p>The deployed controllers replayed in sim. The scoop is shown on its third pass.</p>
+                    <div class="step">2 &middot; DIAL-MPC in sim</div>
                 </div>
             </div>
             <div class="demo-card design">
-                <img src="figures/real/scoop_print.jpg?v=2" alt="Blender render of the printed scoop and jaw mount bolted to the stock YAM gripper, side view" loading="lazy">
+                <img src="figures/real/scoop_print.jpg?v=3" alt="Blender render of the printed scoop and jaw mount bolted to the stock YAM gripper, side view" loading="lazy">
                 <div class="card-body">
                     <div class="step">3 &middot; Printed part</div>
-                    <div class="card-head"><h3>Printed scoop</h3><div class="robot">PLA, FDM PRINTED</div></div>
-                    <p>Blender render: scoop (orange) and jaw mount (purple) bolted to the stock gripper.</p>
                 </div>
             </div>
         </div>
@@ -484,43 +465,37 @@
             <div class="demo-card">
                 <div class="vid-wrap"><video src="videos/real/yam_stock_1.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <div class="card-head"><h3>Scoop &middot; Stock <span class="trial">trial 1</span></h3><div class="robot">YAM ARM &middot; STOCK GRIPPER</div></div>
-                    <p>Parallel gripper, one grasp at a time.</p>
+                    <div class="card-head"><h3>Scoop &middot; Stock <span class="trial">trial 1</span></h3></div>
                 </div>
             </div>
             <div class="demo-card design">
                 <div class="vid-wrap"><video src="videos/real/yam_scoop_1.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <div class="card-head"><h3>Scoop &middot; L2D Design <span class="trial">trial 1</span></h3><div class="robot">YAM ARM + L2D PRINTED SCOOP</div></div>
-                    <p>Printed scoop, by the scoopful.</p>
+                    <div class="card-head"><h3>Scoop &middot; L2D Design <span class="trial">trial 1</span></h3></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video src="videos/real/yam_stock_2.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <div class="card-head"><h3>Scoop &middot; Stock <span class="trial">trial 2</span></h3><div class="robot">YAM ARM &middot; STOCK GRIPPER</div></div>
-                    <p>Parallel gripper, one grasp at a time.</p>
+                    <div class="card-head"><h3>Scoop &middot; Stock <span class="trial">trial 2</span></h3></div>
                 </div>
             </div>
             <div class="demo-card design">
                 <div class="vid-wrap"><video src="videos/real/yam_scoop_2.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <div class="card-head"><h3>Scoop &middot; L2D Design <span class="trial">trial 2</span></h3><div class="robot">YAM ARM + L2D PRINTED SCOOP</div></div>
-                    <p>Printed scoop, by the scoopful.</p>
+                    <div class="card-head"><h3>Scoop &middot; L2D Design <span class="trial">trial 2</span></h3></div>
                 </div>
             </div>
             <div class="demo-card">
                 <div class="vid-wrap"><video src="videos/real/yam_stock_3.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <div class="card-head"><h3>Scoop &middot; Stock <span class="trial">trial 3</span></h3><div class="robot">YAM ARM &middot; STOCK GRIPPER</div></div>
-                    <p>Parallel gripper, one grasp at a time.</p>
+                    <div class="card-head"><h3>Scoop &middot; Stock <span class="trial">trial 3</span></h3></div>
                 </div>
             </div>
             <div class="demo-card design">
                 <div class="vid-wrap"><video src="videos/real/yam_scoop_3.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
-                    <div class="card-head"><h3>Scoop &middot; L2D Design <span class="trial">trial 3</span></h3><div class="robot">YAM ARM + L2D PRINTED SCOOP</div></div>
-                    <p>Printed scoop, by the scoopful.</p>
+                    <div class="card-head"><h3>Scoop &middot; L2D Design <span class="trial">trial 3</span></h3></div>
                 </div>
             </div>
         </div>

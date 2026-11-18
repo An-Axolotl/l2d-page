@@ -161,6 +161,13 @@
         .rw-grid .demo-card.design { border-color: #3a2e28; }
         .rw-grid .demo-card:not(.design) .robot { color: var(--secondary); }
         .rw-grid .demo-card p { margin-bottom: 0; }
+        /* Real world: prompt -> deployed-controller sim -> printed part row */
+        .rw-pipe { margin-bottom: 24px; }
+        .rw-pipe .demo-card .pipe-prompt { aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; padding: 20px 28px;
+            background: #141216; font-family: 'Noto Serif', Georgia, serif; font-style: italic; font-size: 1.15rem; line-height: 1.5; color: var(--heading); text-align: center; }
+        .rw-pipe .demo-card .pipe-prompt .q { color: var(--design-2); font-size: 1.6em; line-height: 0; vertical-align: -0.3em; }
+        .rw-pipe .demo-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+        .rw-pipe .demo-card .step { font-family: 'Inter', 'Noto Sans', sans-serif; font-size: 0.7rem; font-weight: 600; color: var(--design-2); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
         .rw-grid .trial { font-family: 'Inter', 'Noto Sans', sans-serif; font-size: 0.7rem; font-weight: 600; color: var(--secondary); letter-spacing: 0.08em; text-transform: uppercase; margin-left: 8px; vertical-align: 2px; }
         .tip {
             margin-top: 24px; padding: 14px 18px; background: rgba(123,157,232,0.07); border-left: 3px solid var(--accent);
@@ -185,7 +192,7 @@
 </header>
 
 <div class="hero-wrap">
-    <img src="figures/teaser_v50_big.jpg" alt="Prompt, generation and deployment for four robots: a UR5e throwing a ball, a Go1 jumping a hurdle, a G1 humanoid shooting free throws and a Franka gripper moving a can between bins." loading="eager">
+    <img src="figures/teaser_v76.jpg" alt="Prompt, generation and deployment for four robots: a UR5e throwing a ball, a Go2 jumping a hurdle, a G1 humanoid shooting free throws and a Franka gripper moving a can between bins." loading="eager">
     <div class="hero-caption">From a sentence and a stock robot to a co-designed body, a motion that performs the task, and manufacturable parts.</div>
 </div>
 
@@ -369,10 +376,36 @@
 <section id="real-world">
     <div class="page-wide">
         <h2>Real World Results</h2>
-        <p class="method-text" style="max-width:900px">Two L2D designs printed and run on hardware. Each row is one trial: the <strong>stock robot on the left</strong>, the <strong>L2D design on the right</strong>. Three trials per task.</p>
+        <p class="method-text" style="max-width:900px">Two L2D designs printed and run on hardware. For each task: the prompt, the deployed DIAL-MPC controllers in simulation, and the printed part, then the hardware trials. Each trial row: the <strong>stock robot on the left</strong>, the <strong>L2D design on the right</strong>. Three trials per task.</p>
 
         <h3 class="sub">Soccer: Stock Go2 Vs. Printed Kicking Boot</h3>
         <p class="sub-note">Unitree Go2 kicking a ball from a standing start. Left: stock foot. Right: the L2D printed boot clipped over the kicking foot. All clips in real time, cut before the robot drops into damping mode.</p>
+        <div class="demo-grid rw-grid rw-pipe">
+            <div class="demo-card design">
+                <div class="pipe-prompt"><span><span class="q">&ldquo;</span>Kick the ball as far as possible from a standing kick.<span class="q">&rdquo;</span></span></div>
+                <div class="card-body">
+                    <div class="step">1 &middot; Prompt</div>
+                    <div class="card-head"><h3>The original prompt</h3><div class="robot">UNITREE GO2 &middot; LONG KICK</div></div>
+                    <p>The sentence L2D was given, with the stock robot. Nothing else was specified: L2D proposed what to change, simulation decided how much.</p>
+                </div>
+            </div>
+            <div class="demo-card design">
+                <div class="vid-wrap"><video src="videos/real/go2_sim_vs.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="step">2 &middot; Simulation, deployed controllers</div>
+                    <div class="card-head"><h3>DIAL-MPC kick in simulation</h3><div class="robot">STOCK (LEFT) VS. L2D DESIGN (RIGHT)</div></div>
+                    <p>The exact controllers deployed on the robot (DIAL-MPC kick tape plus the closed-loop balance layer) replayed in the simulator they were planned in, nominal world. Left: stock Go2. Right: the same robot with the printed boot on the kicking foot. In this replay the boot carries the ball {GO2_NUMS}.</p>
+                </div>
+            </div>
+            <div class="demo-card design">
+                <img src="figures/real/boot_print.jpg" alt="Blender render of the printed Go2 kicking boot (orange) and its green back piece" loading="lazy">
+                <div class="card-body">
+                    <div class="step">3 &middot; Printed part</div>
+                    <div class="card-head"><h3>Kicking boot, two pieces</h3><div class="robot">PLA, FDM PRINTED</div></div>
+                    <p>The L2D foot from the Long Kick task, prepared for printing: a hollow clamshell boot (orange) that slides over the stock foot and a back piece (green) that bolts it shut. Rendered from the print files sent to the printer.</p>
+                </div>
+            </div>
+        </div>
         <div class="demo-grid two rw-grid">
             <div class="demo-card">
                 <div class="vid-wrap"><video src="videos/real/go2_stock_1.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
@@ -420,6 +453,32 @@
 
         <h3 class="sub">Scoop: Stock Yam Gripper Vs. Printed Scoop</h3>
         <p class="sub-note">Yam arm emptying a bin of balls into the neighbouring bin. Left: stock parallel gripper, one or two balls per grasp. Right: the L2D printed scoop. The arm is blind in both tasks: no camera or vision is used, the motion is replayed open loop. Every clip plays at 12x; the factor is shown in the top-right corner. The three steadiest camera takes of each were chosen.</p>
+        <div class="demo-grid rw-grid rw-pipe">
+            <div class="demo-card design">
+                <div class="pipe-prompt"><span><span class="q">&ldquo;</span>Scoop the balls out of the blue bin and tip them into the green bin, as many as you can as fast as you can.<span class="q">&rdquo;</span></span></div>
+                <div class="card-body">
+                    <div class="step">1 &middot; Prompt</div>
+                    <div class="card-head"><h3>The original prompt</h3><div class="robot">YAM ARM &middot; SCOOP</div></div>
+                    <p>The sentence L2D was given, with the stock robot. Nothing else was specified: L2D proposed what to change, simulation decided how much.</p>
+                </div>
+            </div>
+            <div class="demo-card design">
+                <div class="vid-wrap"><video src="videos/real/yam_sim_vs.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="card-body">
+                    <div class="step">2 &middot; Simulation, deployed controllers</div>
+                    <div class="card-head"><h3>DIAL-MPC scoop in simulation</h3><div class="robot">STOCK (LEFT) VS. L2D DESIGN (RIGHT)</div></div>
+                    <p>The exact DIAL-MPC joint tapes deployed on the arm, replayed in the candy cell they were planned in. Left: stock parallel gripper picking mini Kit Kats one grasp at a time. Right: the printed scoop bolted to the stock jaws, moving peanut M&amp;Ms by the scoopful. {YAM_NUMS} Sped up; the factor is shown in the corner.</p>
+                </div>
+            </div>
+            <div class="demo-card design">
+                <img src="figures/real/scoop_print.jpg" alt="Blender render of the printed two-piece scoop: purple jaw mount, orange scoop, two M4 bolts" loading="lazy">
+                <div class="card-body">
+                    <div class="step">3 &middot; Printed part</div>
+                    <div class="card-head"><h3>Scoop and jaw mount</h3><div class="robot">PLA, FDM PRINTED</div></div>
+                    <p>The L2D scoop from the Bin Pick &rarr; Scoop transfer, split for printing: a jaw mount (purple) that bolts to the stock gripper's finger holes and the scoop itself (orange), joined by two M4 bolts. Rendered from the print files.</p>
+                </div>
+            </div>
+        </div>
         <div class="demo-grid two rw-grid">
             <div class="demo-card">
                 <div class="vid-wrap"><video src="videos/real/yam_stock_1.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>

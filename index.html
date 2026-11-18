@@ -161,6 +161,7 @@
         .rw-grid .demo-card.design { border-color: #3a2e28; }
         .rw-grid .demo-card:not(.design) .robot { color: var(--secondary); }
         .rw-grid .demo-card p { margin-bottom: 0; }
+        .rw-grid .demo-card .toggle { margin-top: 12px; }
         /* Real world: prompt -> deployed-controller sim -> printed part row */
         .rw-pipe { margin-bottom: 24px; }
         .rw-pipe .demo-card .pipe-prompt { aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; padding: 20px 28px;
@@ -408,45 +409,51 @@
         </div>
         <div class="demo-grid two rw-grid">
             <div class="demo-card">
-                <div class="vid-wrap"><video src="videos/real/go2_stock_1.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="vid-wrap"><video data-a="videos/real/go2_stock_1.mp4?v=20261117s" data-b="videos/real/go2_stock_1_raw.mp4?v=20261117u" src="videos/real/go2_stock_1.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
                     <div class="card-head"><h3>Soccer &middot; Stock <span class="trial">trial 1</span></h3><div class="robot">UNITREE GO2 &middot; STOCK</div></div>
                     <p>Bare foot, stance balance controller on.</p>
+                    <div class="toggle"><button class="active" data-v="a">background blurred</button><button data-v="b">unblurred</button></div>
                 </div>
             </div>
             <div class="demo-card design">
-                <div class="vid-wrap"><video src="videos/real/go2_boot_1.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="vid-wrap"><video data-a="videos/real/go2_boot_1.mp4?v=20261117s" data-b="videos/real/go2_boot_1_raw.mp4?v=20261117u" src="videos/real/go2_boot_1.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
                     <div class="card-head"><h3>Soccer &middot; L2D Design <span class="trial">trial 1</span></h3><div class="robot">UNITREE GO2 + PRINTED KICKING BOOT</div></div>
                     <p>Printed boot on the kicking foot.</p>
+                    <div class="toggle"><button class="active" data-v="a">background blurred</button><button data-v="b">unblurred</button></div>
                 </div>
             </div>
             <div class="demo-card">
-                <div class="vid-wrap"><video src="videos/real/go2_stock_2.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="vid-wrap"><video data-a="videos/real/go2_stock_2.mp4?v=20261117s" data-b="videos/real/go2_stock_2_raw.mp4?v=20261117u" src="videos/real/go2_stock_2.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
                     <div class="card-head"><h3>Soccer &middot; Stock <span class="trial">trial 2</span></h3><div class="robot">UNITREE GO2 &middot; STOCK</div></div>
                     <p>Bare foot, stance balance controller on.</p>
+                    <div class="toggle"><button class="active" data-v="a">background blurred</button><button data-v="b">unblurred</button></div>
                 </div>
             </div>
             <div class="demo-card design">
-                <div class="vid-wrap"><video src="videos/real/go2_boot_2.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="vid-wrap"><video data-a="videos/real/go2_boot_2.mp4?v=20261117s" data-b="videos/real/go2_boot_2_raw.mp4?v=20261117u" src="videos/real/go2_boot_2.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
                     <div class="card-head"><h3>Soccer &middot; L2D Design <span class="trial">trial 2</span></h3><div class="robot">UNITREE GO2 + PRINTED KICKING BOOT</div></div>
                     <p>Printed boot on the kicking foot.</p>
+                    <div class="toggle"><button class="active" data-v="a">background blurred</button><button data-v="b">unblurred</button></div>
                 </div>
             </div>
             <div class="demo-card">
-                <div class="vid-wrap"><video src="videos/real/go2_stock_3.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="vid-wrap"><video data-a="videos/real/go2_stock_3.mp4?v=20261117s" data-b="videos/real/go2_stock_3_raw.mp4?v=20261117u" src="videos/real/go2_stock_3.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
                     <div class="card-head"><h3>Soccer &middot; Stock <span class="trial">trial 3</span></h3><div class="robot">UNITREE GO2 &middot; STOCK</div></div>
                     <p>Bare foot, open-loop baseline kick (no balance layer).</p>
+                    <div class="toggle"><button class="active" data-v="a">background blurred</button><button data-v="b">unblurred</button></div>
                 </div>
             </div>
             <div class="demo-card design">
-                <div class="vid-wrap"><video src="videos/real/go2_boot_3.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
+                <div class="vid-wrap"><video data-a="videos/real/go2_boot_3.mp4?v=20261117s" data-b="videos/real/go2_boot_3_raw.mp4?v=20261117u" src="videos/real/go2_boot_3.mp4?v=20261117s" autoplay loop muted playsinline preload="metadata"></video></div>
                 <div class="card-body">
                     <div class="card-head"><h3>Soccer &middot; L2D Design <span class="trial">trial 3</span></h3><div class="robot">UNITREE GO2 + PRINTED KICKING BOOT</div></div>
                     <p>Printed boot on the kicking foot.</p>
+                    <div class="toggle"><button class="active" data-v="a">background blurred</button><button data-v="b">unblurred</button></div>
                 </div>
             </div>
         </div>
